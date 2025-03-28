@@ -9,38 +9,25 @@ import {
     OutlinedInput,
     Typography,
 } from "@mui/material";
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 export default function ResetPasswordPage() {
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [timeLeft, setTimeLeft] = useState(600); // 10 menit (600 detik)
-    const [resendDisabled, setResendDisabled] = useState(true);
 
-    useEffect(() => {
-        if (timeLeft > 0) {
-            const timer = setInterval(() => {
-                setTimeLeft((prev) => prev - 1);
-            }, 1000);
-            return () => clearInterval(timer);
-        } else {
-            setResendDisabled(false);
-        }
-    }, [timeLeft]);
-
-    const togglePasswordVisibility = (event: { preventDefault: () => void; }) => {
+    const togglePasswordVisibility = (event: React.MouseEvent) => {
         event.preventDefault();
         setShowPassword((prev) => !prev);
     };
 
-    const toggleConfirmPasswordVisibility = (event: { preventDefault: () => void; }) => {
+    const toggleConfirmPasswordVisibility = (event: React.MouseEvent) => {
         event.preventDefault();
         setShowConfirmPassword((prev) => !prev);
     };
 
-    const isValidPassword = (password: string |string) => {
+    const isValidPassword = (password: string) => {
         return password.length >= 8 && /\d/.test(password) && /[a-zA-Z]/.test(password);
     };
 
@@ -53,28 +40,19 @@ export default function ResetPasswordPage() {
             alert("Passwords do not match. Please try again.");
             return;
         }
-        alert("Password has been reset successfully.");
-    };
-
-    const handleResendEmail = () => {
-        setTimeLeft(600);
-        setResendDisabled(true);
-        alert("Email reset password telah dikirim ulang.");
+        alert("Password berhasil direset.");
     };
 
     return (
         <div className="flex h-screen bg-white items-center justify-center p-4">
             <div className="w-1/3 bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
                 <Typography variant="h5" className="mb-4 font-semibold">
-                    Reset Your Password
+                    Reset Password
                 </Typography>
                 <Typography className="text-gray-600 mb-6 text-center">
-                    Enter your new password below.
+                    Masukkan password baru Anda.
                 </Typography>
-                <Typography className="text-red-500 text-sm mb-4">
-                    Link reset password akan expired dalam {Math.floor(timeLeft / 60)}:{(timeLeft % 60).toString().padStart(2, "0")} menit
-                </Typography>
-                
+
                 <FormControl fullWidth variant="outlined" margin="normal">
                     <InputLabel htmlFor="new-password">New Password</InputLabel>
                     <OutlinedInput
@@ -92,7 +70,7 @@ export default function ResetPasswordPage() {
                         label="New Password"
                     />
                 </FormControl>
-                
+
                 <FormControl fullWidth variant="outlined" margin="normal">
                     <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
                     <OutlinedInput
@@ -110,7 +88,7 @@ export default function ResetPasswordPage() {
                         label="Confirm Password"
                     />
                 </FormControl>
-                
+
                 <Button
                     variant="contained"
                     fullWidth
@@ -118,15 +96,6 @@ export default function ResetPasswordPage() {
                     onClick={handleResetPassword}
                 >
                     Reset Password
-                </Button>
-                <Button
-                    variant="text"
-                    fullWidth
-                    sx={{ mt: 2, color: "black" }}
-                    onClick={handleResendEmail}
-                    disabled={resendDisabled}
-                >
-                    Kirim Ulang Email
                 </Button>
             </div>
         </div>

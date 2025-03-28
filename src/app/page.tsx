@@ -17,7 +17,7 @@ import {
   OutlinedInput,
   TextField,
 } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false);
@@ -26,6 +26,37 @@ export default function LoginPage() {
   const [failedAttempts, setFailedAttempts] = useState(0);
   const [captchaRequired, setCaptchaRequired] = useState(false);
   const [role, setRole] = useState("customer"); // customer | affiliator
+  const [resendTime, setResendTime] = useState(0); // Default tidak ada cooldown
+  const [resendDisabled, setResendDisabled] = useState(false);
+  const [isFirstSend, setIsFirstSend] = useState(true); // Untuk kontrol tombol pertama kali
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (resendDisabled && resendTime > 0) {
+      timer = setInterval(() => {
+        setResendTime((prev) => prev - 1);
+      }, 1000);
+    } else if (resendTime === 0) {
+      setResendDisabled(false);
+    }
+    return () => clearInterval(timer);
+  }, [resendDisabled, resendTime]);
+
+  const handleSendResetLink = () => {
+    alert(`Reset link sent to ${resetEmail}`);
+    setIsFirstSend(false); // Ubah state agar tombol berubah jadi "Resend Email"
+    setResendDisabled(true);
+    setResendTime(60); // Set cooldown 1 menit
+    // Redirect ke halaman reset password in new tab
+    window.open("/reset-password", "_blank");
+  };
+
+  const handleResendEmail = () => {
+    alert(`Resend link sent to ${resetEmail}`);
+    setResendDisabled(true);
+    setResendTime(60); // Set cooldown 1 menit lagi
+    window.open("/reset-password", "_blank");
+  };
 
   const togglePasswordVisibility = (event: React.MouseEvent) => {
     event.preventDefault();
@@ -45,7 +76,6 @@ export default function LoginPage() {
     <div className="flex h-screen bg-white items-center justify-center gap-4 p-4">
       {/* Login Form Section */}
       <div className="w-1/2 h-full bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
-        {/* Khasfee Logo (Tambahkan Logo Jika Ada) */}
         <Image />
         <h2 className="text-2xl font-semibold mb-2">Welcome Back</h2>
         <p className="text-gray-600 mb-6">Sign in to continue</p>
@@ -145,19 +175,27 @@ export default function LoginPage() {
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setOpenForgotPassword(false)}>Cancel</Button>
-          <Button
-            variant="contained"
-            color="primary"
-            onClick={() =>{
-              alert(`Reset link sent to ${resetEmail}`);
-              //navigate to reset password page (/reset-password)
-              window.location.href = "/reset-password";
-              
 
-            }}
-          >
-            Send Reset Link
-          </Button>
+          {/* Awalnya "Send Reset Link", kemudian berubah ke "Resend Email" */}
+          {isFirstSend ? (
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleSendResetLink}
+              disabled={!resetEmail} // Disable jika email kosong
+            >
+              Send Reset Link
+            </Button>
+          ) : (
+            <Button
+              variant="outlined"
+              color="secondary"
+              disabled={resendDisabled}
+              onClick={handleResendEmail}
+            >
+              {resendDisabled ? `Resend in ${resendTime}s` : "Resend Email"}
+            </Button>
+          )}
         </DialogActions>
       </Dialog>
     </div>
