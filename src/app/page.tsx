@@ -1,0 +1,165 @@
+"use client";
+import { Image, Visibility, VisibilityOff } from "@mui/icons-material";
+import {
+  Button,
+  Checkbox,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  Link,
+  OutlinedInput,
+  TextField,
+} from "@mui/material";
+import React, { useState } from "react";
+
+export default function LoginPage() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [openForgotPassword, setOpenForgotPassword] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [failedAttempts, setFailedAttempts] = useState(0);
+  const [captchaRequired, setCaptchaRequired] = useState(false);
+  const [role, setRole] = useState("customer"); // customer | affiliator
+
+  const togglePasswordVisibility = (event: React.MouseEvent) => {
+    event.preventDefault();
+    setShowPassword((prev) => !prev);
+  };
+
+  const handleLogin = () => {
+    if (failedAttempts >= 2) setCaptchaRequired(true);
+    if (failedAttempts >= 4) {
+      alert("Too many failed attempts. Please wait or complete CAPTCHA.");
+      return;
+    }
+    setFailedAttempts((prev) => prev + 1);
+  };
+
+  return (
+    <div className="flex h-screen bg-white items-center justify-center gap-4 p-4">
+      {/* Login Form Section */}
+      <div className="w-1/2 h-full bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
+        {/* Khasfee Logo (Tambahkan Logo Jika Ada) */}
+        <Image />
+        <h2 className="text-2xl font-semibold mb-2">Welcome Back</h2>
+        <p className="text-gray-600 mb-6">Sign in to continue</p>
+
+        <TextField
+          fullWidth
+          id="email"
+          label="Email"
+          margin="normal"
+          variant="outlined"
+        />
+        <FormControl fullWidth variant="outlined" margin="normal">
+          <InputLabel htmlFor="password">Password</InputLabel>
+          <OutlinedInput
+            id="password"
+            type={showPassword ? "text" : "password"}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton onClick={togglePasswordVisibility} edge="end">
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl>
+
+        {captchaRequired && (
+          <p className="text-red-500">Please complete CAPTCHA</p>
+        )}
+
+        <div className="flex items-center justify-between w-full mt-2">
+          <FormControlLabel
+            control={<Checkbox defaultChecked />}
+            label="Remember me"
+          />
+          <button
+            className="text-blue-500 hover:underline"
+            onClick={() => setOpenForgotPassword(true)}
+          >
+            Forgot Password?
+          </button>
+        </div>
+
+        <Button
+          variant="contained"
+          fullWidth
+          sx={{
+            mt: 3,
+            backgroundColor: "black",
+            "&:hover": { backgroundColor: "#333" },
+          }}
+          onClick={handleLogin}
+        >
+          Sign In
+        </Button>
+
+        <p className="text-sm text-gray-600 mt-4">
+          Don't have an account?{" "}
+          <Link href="/register" className="text-blue-500 hover:underline">
+            Register
+          </Link>
+        </p>
+      </div>
+
+      {/* Image Section */}
+      <div className="w-1/2 h-full bg-black flex items-center justify-center rounded-3xl shadow-lg p-10">
+        <img
+          src="https://img.freepik.com/premium-vector/elegant-cosmetic-face-crem-jar-skin-care-black-background-beautiful-cosmetic-template-ads-makeup-products-brand-realistic-3d-black-matte-cosmetic-jar_195742-203.jpg"
+          alt="Cosmetic Product"
+          className="rounded-2xl w-full h-auto"
+        />
+      </div>
+
+      {/* Forgot Password Dialog */}
+      <Dialog
+        open={openForgotPassword}
+        onClose={() => setOpenForgotPassword(false)}
+      >
+        <DialogTitle>Reset Password</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            Enter your email address and we will send you a link to reset your
+            password.
+          </DialogContentText>
+          <TextField
+            autoFocus
+            margin="dense"
+            id="reset-email"
+            label="Email Address"
+            type="email"
+            fullWidth
+            variant="outlined"
+            value={resetEmail}
+            onChange={(e) => setResetEmail(e.target.value)}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setOpenForgotPassword(false)}>Cancel</Button>
+          <Button
+            variant="contained"
+            color="primary"
+            onClick={() =>{
+              alert(`Reset link sent to ${resetEmail}`);
+              //navigate to reset password page (/reset-password)
+              window.location.href = "/reset-password";
+              
+
+            }}
+          >
+            Send Reset Link
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+}
