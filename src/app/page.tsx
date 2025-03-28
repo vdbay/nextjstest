@@ -75,7 +75,7 @@ export default function LoginPage() {
   return (
     <div className="flex h-screen bg-white items-center justify-center gap-4 p-4">
       {/* Login Form Section */}
-      <div className="w-1/2 h-full bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
+      <div className="w-full md:w-1/2 h-full bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-4 md:p-8 text-black">
         <Image />
         <h2 className="text-2xl font-semibold mb-2">Welcome Back</h2>
         <p className="text-gray-600 mb-6">Sign in to continue</p>
@@ -142,11 +142,11 @@ export default function LoginPage() {
       </div>
 
       {/* Image Section */}
-      <div className="w-1/2 h-full bg-black flex items-center justify-center rounded-3xl shadow-lg p-10">
+      <div className="hidden md:flex w-full md:w-1/2 h-full bg-black flex-col items-center justify-center rounded-3xl shadow-lg p-4 md:p-8 text-white">
         <img
           src="https://img.freepik.com/premium-vector/elegant-cosmetic-face-crem-jar-skin-care-black-background-beautiful-cosmetic-template-ads-makeup-products-brand-realistic-3d-black-matte-cosmetic-jar_195742-203.jpg"
           alt="Cosmetic Product"
-          className="rounded-2xl w-full h-auto"
+          className="w-full h-full object-cover"
         />
       </div>
 

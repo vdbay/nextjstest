@@ -44,8 +44,8 @@ export default function ResetPasswordPage() {
     };
 
     return (
-        <div className="flex h-screen bg-white items-center justify-center p-4">
-            <div className="w-1/3 bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
+        <div className="flex h-screen bg-white items-center justify-center p-4 md:p-8">
+            <div className="w-full md:w-1/2 lg:w-1/3 bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
                 <Typography variant="h5" className="mb-4 font-semibold">
                     Reset Password
                 </Typography>
