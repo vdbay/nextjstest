@@ -265,7 +265,7 @@ export default function Register() {
         <p className="text-sm text-gray-600 mt-4">
           Already have an account?{" "}
           <span className="text-blue-500 cursor-pointer hover:underline">
-            <Link href="/">Login</Link>
+            <Link href="/login">Login</Link>
           </span>
         </p>
       </div>

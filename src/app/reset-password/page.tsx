@@ -9,6 +9,7 @@ import {
   OutlinedInput,
   Typography,
 } from "@mui/material";
+import { Router } from "next/router";
 import React, { useState } from "react";
 
 export default function ResetPasswordPage() {
@@ -45,69 +46,72 @@ export default function ResetPasswordPage() {
       return;
     }
     alert("Password berhasil direset.");
+    window.location.href = "/login";
   };
 
   return (
     <div className="flex h-screen bg-white items-center justify-center p-4 md:p-8">
-      <div className="w-full h-full md:h-auto md:w-1/2 lg:w-1/3 bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
-        <Typography variant="h5" className="mb-4 font-semibold">
-          Reset Password
-        </Typography>
-        <Typography className="text-gray-600 mb-6 text-center">
-          Masukkan password baru Anda.
-        </Typography>
+      <div className="w-full h-full  bg-gray-100 flex flex-col items-center justify-center rounded-3xl shadow-lg p-10 text-black">
+        <div className="w-full md:w-1/2 lg:w-1/3 h-full flex flex-col items-center justify-center md:">
+          <Typography variant="h5" className="mb-4 font-semibold">
+            Reset Password
+          </Typography>
+          <Typography className="text-gray-600 mb-6 text-center">
+            Masukkan password baru Anda.
+          </Typography>
 
-        <FormControl fullWidth variant="outlined" margin="normal">
-          <InputLabel htmlFor="new-password">New Password</InputLabel>
-          <OutlinedInput
-            id="new-password"
-            type={showPassword ? "text" : "password"}
-            value={newPassword}
-            onChange={(e) => setNewPassword(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton onClick={togglePasswordVisibility} edge="end">
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="New Password"
-          />
-        </FormControl>
+          <FormControl fullWidth variant="outlined" margin="normal">
+            <InputLabel htmlFor="new-password">New Password</InputLabel>
+            <OutlinedInput
+              id="new-password"
+              type={showPassword ? "text" : "password"}
+              value={newPassword}
+              onChange={(e) => setNewPassword(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton onClick={togglePasswordVisibility} edge="end">
+                    {showPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="New Password"
+            />
+          </FormControl>
 
-        <FormControl fullWidth variant="outlined" margin="normal">
-          <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
-          <OutlinedInput
-            id="confirm-password"
-            type={showConfirmPassword ? "text" : "password"}
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={toggleConfirmPasswordVisibility}
-                  edge="end"
-                >
-                  {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-            label="Confirm Password"
-          />
-        </FormControl>
+          <FormControl fullWidth variant="outlined" margin="normal">
+            <InputLabel htmlFor="confirm-password">Confirm Password</InputLabel>
+            <OutlinedInput
+              id="confirm-password"
+              type={showConfirmPassword ? "text" : "password"}
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              endAdornment={
+                <InputAdornment position="end">
+                  <IconButton
+                    onClick={toggleConfirmPasswordVisibility}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
+                  </IconButton>
+                </InputAdornment>
+              }
+              label="Confirm Password"
+            />
+          </FormControl>
 
-        <Button
-          variant="contained"
-          fullWidth
-          sx={{
-            mt: 3,
-            backgroundColor: "black",
-            "&:hover": { backgroundColor: "#333" },
-          }}
-          onClick={handleResetPassword}
-        >
-          Reset Password
-        </Button>
+          <Button
+            variant="contained"
+            fullWidth
+            sx={{
+              mt: 3,
+              backgroundColor: "black",
+              "&:hover": { backgroundColor: "#333" },
+            }}
+            onClick={handleResetPassword}
+          >
+            Reset Password
+          </Button>
+        </div>
       </div>
     </div>
   );
