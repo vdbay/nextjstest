@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 export function MarqueeBanner() {
   return (
@@ -13,5 +13,5 @@ export function MarqueeBanner() {
           ))}
       </div>
     </div>
-  )
+  );
 }

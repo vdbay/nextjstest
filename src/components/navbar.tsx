@@ -1,6 +1,6 @@
-import Link from "next/link"
-import { Search, ShoppingCart, User } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link";
+import { Search, ShoppingCart, User } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
   return (
@@ -42,5 +42,5 @@ export function Navbar() {
         </Button>
       </div>
     </header>
-  )
+  );
 }

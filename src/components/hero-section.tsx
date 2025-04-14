@@ -1,6 +1,6 @@
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { FeatureCard } from "@/components/feature-card"
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { FeatureCard } from "@/components/feature-card";
 
 export function HeroSection() {
   return (
@@ -38,18 +38,18 @@ export function HeroSection() {
       </div>
       <div className="flex flex-col gap-4">
         <FeatureCard
-          title="KHASPECIATE SPACE"
-          subtitle="We Rich Together"
+          title="KHASFEELIATE SPACE"
+          subtitle='"Be Rich Together"'
           imageUrl="/placeholder.svg?height=190&width=400"
           imageAlt="Person with headphones"
         />
         <FeatureCard
           title="KHASFIDENCE TEAM"
-          subtitle="We Rich Together"
+          subtitle='"Be Rich Together"'
           imageUrl="/placeholder.svg?height=190&width=400"
           imageAlt="Person on phone"
         />
       </div>
     </section>
-  )
+  );
 }

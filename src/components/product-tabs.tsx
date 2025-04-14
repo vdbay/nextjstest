@@ -1,6 +1,6 @@
-import Image from "next/image"
-import { Button } from "@/components/ui/button"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import Image from "next/image";
+import { Button } from "@/components/ui/button";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export function ProductTabs() {
   return (
@@ -89,14 +89,16 @@ export function ProductTabs() {
         </TabsContent>
       </Tabs>
     </div>
-  )
+  );
 }
 
 function BenefitItem({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-2">
-      <div className="w-4 h-4 rounded-full bg-[#e9c978] flex items-center justify-center text-black text-xs">✓</div>
+      <div className="w-4 h-4 rounded-full bg-[#e9c978] flex items-center justify-center text-black text-xs">
+        ✓
+      </div>
       <span>{text}</span>
     </div>
-  )
+  );
 }

@@ -1,13 +1,18 @@
-import Image from "next/image"
+import Image from "next/image";
 
 interface FeatureCardProps {
-  title: string
-  subtitle: string
-  imageUrl: string
-  imageAlt: string
+  title: string;
+  subtitle: string;
+  imageUrl: string;
+  imageAlt: string;
 }
 
-export function FeatureCard({ title, subtitle, imageUrl, imageAlt }: FeatureCardProps) {
+export function FeatureCard({
+  title,
+  subtitle,
+  imageUrl,
+  imageAlt,
+}: FeatureCardProps) {
   return (
     <div className="bg-[#333] rounded-3xl overflow-hidden relative h-[190px]">
       <div className="absolute inset-0 p-6 text-white">
@@ -22,5 +27,5 @@ export function FeatureCard({ title, subtitle, imageUrl, imageAlt }: FeatureCard
         className="w-full h-full object-cover"
       />
     </div>
-  )
+  );
 }

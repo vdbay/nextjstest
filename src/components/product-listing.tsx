@@ -1,5 +1,5 @@
-import { Button } from "@/components/ui/button"
-import { ProductCard } from "@/components/product-card"
+import { Button } from "@/components/ui/button";
+import { ProductCard } from "@/components/product-card";
 
 export function ProductListing() {
   const products = [
@@ -57,13 +57,18 @@ export function ProductListing() {
       discount: "10%",
       isBundle: true,
     },
-  ]
+  ];
 
   return (
     <section className="container mx-auto px-4 py-8">
       <div className="flex gap-4 mb-6">
-        <Button className="bg-[#e9c978] hover:bg-[#d4b76a] text-black rounded-full">SPECIAL PRICE</Button>
-        <Button variant="outline" className="bg-white text-black border-[#e9c978] rounded-full hover:bg-[#f8f8f8]">
+        <Button className="bg-[#e9c978] hover:bg-[#d4b76a] text-black rounded-full">
+          SPECIAL PRICE
+        </Button>
+        <Button
+          variant="outline"
+          className="bg-white text-black border-[#e9c978] rounded-full hover:bg-[#f8f8f8]"
+        >
           ALL PRODUCTS
         </Button>
       </div>
@@ -74,5 +79,5 @@ export function ProductListing() {
         ))}
       </div>
     </section>
-  )
+  );
 }
