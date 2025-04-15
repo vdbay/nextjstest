@@ -1,7 +1,8 @@
 import HomeGrid from "@/components/khasfee/home-grid";
 import { NavbarKhasfee } from "@/components/khasfee/navbar-khasfee";
 import HomePromotionBar from "@/components/khasfee/home-promotion-bar";
-import { Button } from "@/components/ui/button";
+import HomeProductHighlight from "@/components/khasfee/home-product-highlight";
+import { ShoppingCart } from "lucide-react";
 
 export default function Home() {
   return (
@@ -9,44 +10,48 @@ export default function Home() {
       <HomePromotionBar />
       <NavbarKhasfee />
       <HomeGrid />
-      <div className="grid grid-cols-1 md:grid-cols-2 m-6 gap-6">
-        <div className="flex flex-col gap-6">
-          <div className=" font-bold italic text-6xl">
-            OUR PRODUCT BACKED BY SCIENCE
+      <HomeProductHighlight />
+      <div className="mx-6 text-6xl font-bold">ENJOY SHOPPING!</div>
+      <div className="mx-6">
+        <div className="flex flex-row gap-6 mb-6">
+          <div className=" p-2  bg-gray-100 rounded-2xl font-semibold text-lg">
+            SPECIAL PRICE
           </div>
-          <div>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Optio,
-            quaerat perspiciatis nisi quam nemo rem nobis delectus odio tempora
-            rerum excepturi veritatis accusamus aliquid iste? Distinctio magnam
-            deserunt quos veniam!
+          <div className=" p-2  bg-gray-100 rounded-2xl font-semibold text-lg">
+            ALL PRODUCTS
           </div>
-          <Button>Read More</Button>
         </div>
-        <div className="flex flex-col bg-gray-100 p-6 rounded-4xl items-center">
-          <div className="flex flex-row justify-between w-full gap-4">
-            <Button className="flex-grow">MOISTURIZER</Button>
-            <Button className="flex-grow">SUNSCREEN</Button>
-            <Button className="flex-grow">FACIAL WASH</Button>
-          </div>
-          <div className="flex flex-row justify-between w-full  my-4 gap-6">
-            <div className="flex-grow flex flex-col gap-6 ">
-              <div className="text-2xl font-bold ">
-                CERA PROBIOTIC MOISTURIZER
+      </div>
+      <div className="mx-6 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 mb-6">
+        {Array.from({ length: 10 }).map((_, index) => (
+          <div
+            key={index}
+            className="bg-gray-100 rounded-2xl flex items-center justify-center aspect-1/1 flex-col gap-2 p-6"
+          >
+            <div className="bg-gray-300 flex w-full h-full rounded-2xl p-6">
+              gambar
+            </div>
+            <div className="font-semibold">Cera Probiotic Moisturizer</div>
+            <div className="flex flex-row gap-2 items-center">
+              <div className="font-bold text-xl">Rp. XXX.XXX</div>
+              <div className="text-gray-500 line-through">Rp. XXX.XXX</div>
+            </div>
+            <div className="flex flex-row gap-2 items-center justify-between">
+              <div className="grid grid-cols-2 gap-2 items-center">
+                <div className="bg-gray-300 rounded-2xl h-16 grid place-items-center p-2">
+                  BUY NOW
+                </div>
+                <div className="bg-gray-300 rounded-2xl h-16 grid place-items-center p-2">
+                  <ShoppingCart />
+                </div>
               </div>
-              <Button>30mL</Button>
-            </div>
-            <div className="flex-grow ">
-              <ul role="list" className="list-disc ">
-                <li>Good Regeneration</li>
-                <li>Stronger Skin Barrier</li>
-                <li>Stress Defense</li>
-                <li>Deep Penetration</li>
-              </ul>
             </div>
           </div>
-          <div className="flex bg-gray-300 w-full h-80 rounded-xl p-2 items-end justify-end">
-            <Button>Read More</Button>
-          </div>
+        ))}
+      </div>
+      <div className="text-center my-6">
+        <div className="inline-block font-bold text-3xl bg-gray-100 px-6 py-2 rounded-2xl">
+          SEE MORE SPECIAL OFFER
         </div>
       </div>
     </div>
