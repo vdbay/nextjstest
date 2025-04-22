@@ -1,11 +1,11 @@
 export default function RightHero() {
   return (
     <div
-      className="relative flex h-svh items-end bg-cover bg-center text-white w-1/2"
+      className="relative flex h-svh items-end bg-cover bg-center text-white w-full md:w-1/2"
       style={{ backgroundImage: "url('/hero.jpg')" }}
     >
       <div className="absolute inset-0 bg-gradient-to-t from-black/64 to-transparent z-10" />
-      <div className="relative z-20 w-full text-center px-4 pb-16">
+      <div className="relative z-20 w-full text-justify px-4 pb-16">
         <h1 className="text-4xl md:text-5xl font-bold mb-4">
           Welcome to Khasfeedence
         </h1>
