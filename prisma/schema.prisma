@@ -1,0 +1,356 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider  = "postgresql"
+    url       = env("POSTGRES_PRISMA_URL")
+    // directUrl = env("POSTGRES_URL_NON_POOLING")
+}
+
+model product {
+    product_id             Int                      @id(map: "pk_product") @unique(map: "product_pk") @default(autoincrement())
+    catalogue_id           Int?
+    doc_id                 Int?
+    product_name           String?                  @db.VarChar(100)
+    product_desc           String?
+    product_stock          BigInt?
+    product_price          Decimal?                 @db.Decimal(10, 2)
+    product_discount       Decimal?                 @db.Decimal(10, 2)
+    product_discount_start DateTime?                @db.Date
+    product_discount_end   DateTime?                @db.Date
+    created_at             DateTime?                @db.Timestamp(6)
+    created_by             String?                  @db.VarChar(100)
+    last_modified_at       DateTime?                @db.Timestamp(6)
+    last_modified_by       String?                  @db.VarChar(100)
+    cart_item              cart_item[]
+    checkout_item_snapshot checkout_item_snapshot[]
+    catalogue              catalogue?               @relation(fields: [catalogue_id], references: [catalogue_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_relations_catalogu")
+    document               document?                @relation(fields: [doc_id], references: [doc_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_relations_document")
+
+    @@index([doc_id], map: "relationship_16_fk")
+    @@index([catalogue_id], map: "relationship_3_fk")
+}
+
+model advertisement {
+    ads_id           Int       @id(map: "pk_advertisement") @unique(map: "advertisement_pk") @default(autoincrement())
+    doc_id           Int?
+    ads_title        String?   @db.VarChar(100)
+    ads_desc         String?
+    ads_redirect_url String?   @db.VarChar(500)
+    ads_start_date   DateTime? @db.Date
+    ads_end_date     DateTime? @db.Date
+    is_active        Boolean?
+    created_at       DateTime? @db.Timestamp(6)
+    created_by       String?   @db.VarChar(100)
+    last_modified_at DateTime? @db.Timestamp(6)
+    last_modified_by String?   @db.VarChar(100)
+    document         document? @relation(fields: [doc_id], references: [doc_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_advertis_relations_document")
+
+    @@index([doc_id], map: "relationship_20_fk")
+}
+
+model cart {
+    cart_id          Int         @id(map: "pk_cart") @unique(map: "cart_pk") @default(autoincrement())
+    user_id          Int?
+    created_at       DateTime?   @db.Timestamp(6)
+    created_by       String?     @db.VarChar(100)
+    last_modified_at DateTime?   @db.Timestamp(6)
+    last_modified_by String?     @db.VarChar(100)
+    user_info        user_info?  @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_relations_user_inf")
+    cart_item        cart_item[]
+    checkout         checkout[]
+
+    @@index([user_id], map: "relationship_4_fk")
+}
+
+model cart_item {
+    cart_item_id       Int       @id(map: "pk_cart_item") @unique(map: "cart_item_pk") @default(autoincrement())
+    cart_id            Int?
+    product_id         Int?
+    cart_item_quantity BigInt?
+    created_at         DateTime? @db.Timestamp(6)
+    created_by         String?   @db.VarChar(100)
+    last_modified_at   DateTime? @db.Timestamp(6)
+    last_modified_by   String?   @db.VarChar(100)
+    cart               cart?     @relation(fields: [cart_id], references: [cart_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_ite_relations_cart")
+    product            product?  @relation(fields: [product_id], references: [product_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_cart_ite_relations_product")
+
+    @@index([cart_id], map: "relationship_5_fk")
+    @@index([product_id], map: "relationship_6_fk")
+}
+
+model catalogue {
+    catalogue_id     Int       @id(map: "pk_catalogue") @unique(map: "catalogue_pk") @default(autoincrement())
+    catalogue_name   String?   @db.VarChar(100)
+    catalogue_desc   String?
+    created_at       DateTime? @db.Timestamp(6)
+    created_by       String?   @db.VarChar(100)
+    last_modified_at DateTime? @db.Timestamp(6)
+    last_modified_by String?   @db.VarChar(100)
+    product          product[]
+}
+
+model checkout {
+    checkout_id            Int                      @id(map: "pk_checkout") @unique(map: "checkout_pk") @default(autoincrement())
+    cart_id                Int?
+    checkout_total_amount  Decimal?                 @db.Decimal(10, 2)
+    checkout_status        BigInt?
+    created_at             DateTime?                @db.Timestamp(6)
+    created_by             String?                  @db.VarChar(100)
+    last_modified_at       DateTime?                @db.Timestamp(6)
+    last_modified_by       String?                  @db.VarChar(100)
+    cart                   cart?                    @relation(fields: [cart_id], references: [cart_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_checkout_relations_cart")
+    checkout_item_snapshot checkout_item_snapshot[]
+    payment                payment[]
+    shipping               shipping[]
+
+    @@index([cart_id], map: "relationship_7_fk")
+}
+
+model checkout_item_snapshot {
+    co_snapshot_id         Int       @id(map: "pk_checkout_item_snapshot") @unique(map: "checkout_item_snapshot_pk") @default(autoincrement())
+    checkout_id            Int?
+    product_id             Int?
+    co_snap_product_name   String?   @db.VarChar(100)
+    co_snap_quantity       BigInt?
+    co_snap_original_price Decimal?  @db.Decimal(10, 2)
+    co_snap_discount_price Decimal?  @db.Decimal(10, 2)
+    co_snap_final_price    Decimal?  @db.Decimal(10, 2)
+    created_at             DateTime? @db.Timestamp(6)
+    created_by             String?   @db.VarChar(100)
+    last_modified_at       DateTime? @db.Timestamp(6)
+    last_modified_by       String?   @db.VarChar(100)
+    checkout               checkout? @relation(fields: [checkout_id], references: [checkout_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_checkout_relations_checkout")
+    product                product?  @relation(fields: [product_id], references: [product_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_checkout_relations_product")
+
+    @@index([checkout_id], map: "relationship_14_fk")
+    @@index([product_id], map: "relationship_15_fk")
+}
+
+model document {
+    doc_id            Int             @id(map: "pk_document") @default(autoincrement())
+    doc_original_name String?         @db.VarChar(255)
+    doc_type          String?         @db.VarChar(50)
+    doc_size          BigInt?
+    doc_path          String?         @db.VarChar(500)
+    created_at        DateTime?       @db.Timestamp(6)
+    created_by        String?         @db.VarChar(100)
+    last_modified_at  DateTime?       @db.Timestamp(6)
+    last_modified_by  String?         @db.VarChar(100)
+    advertisement     advertisement[]
+    product           product[]
+    user_profile      user_profile[]
+}
+
+model loyalty_point_history {
+    loyalty_hist_id     Int        @id(map: "pk_loyalty_point_history") @unique(map: "loyalty_point_history_pk") @default(autoincrement())
+    user_id             Int?
+    loyalty_action_type BigInt?
+    loyalty_activity    String?    @db.VarChar(100)
+    loyalty_desc        String?
+    loyalty_points      BigInt?
+    created_at          DateTime?  @db.Timestamp(6)
+    created_by          String?    @db.VarChar(100)
+    last_modified_at    DateTime?  @db.Timestamp(6)
+    last_modified_by    String?    @db.VarChar(100)
+    user_info           user_info? @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_loyalty__relations_user_inf")
+
+    @@index([user_id], map: "relationship_21_fk")
+}
+
+model loyalty_program {
+    user_id              Int
+    loyalty_id           Int       @id(map: "pk_loyalty_program") @default(autoincrement())
+    loyalty_total_points BigInt?
+    created_at           DateTime? @db.Timestamp(6)
+    created_by           String?   @db.VarChar(100)
+    last_modified_at     DateTime? @db.Timestamp(6)
+    last_modified_by     String?   @db.VarChar(100)
+    user_info            user_info @relation(fields: [user_id], references: [user_id], onUpdate: Restrict, map: "fk_loyalty__relations_user_inf")
+
+    @@index([user_id], map: "relationship_12_fk")
+}
+
+model payment {
+    payment_id       Int       @id(map: "pk_payment") @unique(map: "payment_pk") @default(autoincrement())
+    checkout_id      Int?
+    payment_method   String?   @db.VarChar(100)
+    payment_status   BigInt?
+    payment_amount   Decimal?  @db.Decimal(10, 2)
+    paid_at          DateTime? @db.Timestamp(6)
+    created_at       DateTime? @db.Timestamp(6)
+    created_by       String?   @db.VarChar(100)
+    last_modified_at DateTime? @db.Timestamp(6)
+    last_modified_by String?   @db.VarChar(100)
+    checkout         checkout? @relation(fields: [checkout_id], references: [checkout_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_payment_relations_checkout")
+
+    @@index([checkout_id], map: "relationship_11_fk")
+}
+
+model promotion {
+    promo_id             Int       @id(map: "pk_promotion") @unique(map: "promotion_pk") @default(autoincrement())
+    promo_code           String?   @db.VarChar(50)
+    promo_desc           String?
+    promo_discount_type  BigInt?
+    promo_discount_value Decimal?  @db.Decimal(10, 2)
+    promo_start_date     DateTime? @db.Date
+    promo_end_date       DateTime? @db.Date
+    promo_min_purchase   Decimal?  @db.Decimal(10, 2)
+    promo_min_quantity   BigInt?
+    promo_applies_to     BigInt?
+    created_at           DateTime? @db.Timestamp(6)
+    created_by           String?   @db.VarChar(100)
+    last_modified_at     DateTime? @db.Timestamp(6)
+    last_modified_by     String?   @db.VarChar(100)
+}
+
+model shipping {
+    shipping_id               Int                         @id(map: "pk_shipping") @unique(map: "shipping_pk") @default(autoincrement())
+    checkout_id               Int?
+    addr_id                   Int?
+    shipping_method           String?                     @db.VarChar(100)
+    shipping_track_number     String?                     @db.VarChar(100)
+    shipping_status           BigInt?
+    shipped_at                DateTime?                   @db.Timestamp(6)
+    delivered_at              DateTime?                   @db.Timestamp(6)
+    created_at                DateTime?                   @db.Timestamp(6)
+    created_by                String?                     @db.VarChar(100)
+    last_modified_at          DateTime?                   @db.Timestamp(6)
+    last_modified_by          String?                     @db.VarChar(100)
+    checkout                  checkout?                   @relation(fields: [checkout_id], references: [checkout_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_relations_checkout")
+    user_address              user_address?               @relation(fields: [addr_id], references: [addr_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_relations_user_add")
+    shipping_address_snapshot shipping_address_snapshot[]
+
+    @@index([checkout_id], map: "relationship_10_fk")
+    @@index([addr_id], map: "relationship_9_fk")
+}
+
+model shipping_address_snapshot {
+    ship_snapshot_id         Int       @id(map: "pk_shipping_address_snapshot") @unique(map: "shipping_address_snapshot_pk") @default(autoincrement())
+    shipping_id              Int?
+    ship_snap_recipient_name String?   @db.VarChar(100)
+    ship_snap_mobile         String?   @db.VarChar(20)
+    ship_snap_address        String?
+    ship_snap_country        String?   @db.VarChar(100)
+    ship_snap_province       String?   @db.VarChar(100)
+    ship_snap_district       String?   @db.VarChar(100)
+    ship_snap_subdistrict    String?   @db.VarChar(100)
+    ship_snapr_postal_code   String?   @db.VarChar(10)
+    created_at               DateTime? @db.Timestamp(6)
+    created_by               String?   @db.VarChar(100)
+    last_modified_at         DateTime? @db.Timestamp(6)
+    last_modified_by         String?   @db.VarChar(100)
+    shipping                 shipping? @relation(fields: [shipping_id], references: [shipping_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_shipping_relations_shipping")
+
+    @@index([shipping_id], map: "relationship_13_fk")
+}
+
+model user_address {
+    addr_id             Int        @id(map: "pk_user_address") @unique(map: "user_address_pk") @default(autoincrement())
+    user_id             Int?
+    addr_label          String?    @db.VarChar(50)
+    addr_recipient_name String?    @db.VarChar(100)
+    addr_mobile         String?    @db.VarChar(20)
+    addr_address        String?
+    addr_country        String?    @db.VarChar(100)
+    addr_province       String?    @db.VarChar(100)
+    addr_district       String?    @db.VarChar(100)
+    addr_subdistrict    String?    @db.VarChar(100)
+    addr_postal_code    String?    @db.VarChar(10)
+    is_default          Boolean?
+    created_at          DateTime?  @db.Timestamp(6)
+    created_by          String?    @db.VarChar(100)
+    last_modified_at    DateTime?  @db.Timestamp(6)
+    last_modified_by    String?    @db.VarChar(100)
+    shipping            shipping[]
+    user_info           user_info? @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_user_add_relations_user_inf")
+
+    @@index([user_id], map: "relationship_8_fk")
+}
+
+model user_info {
+    user_id               Int                     @id(map: "pk_user_info") @unique(map: "user_info_pk") @default(autoincrement())
+    role_id2              Int?
+    user_name             String?                 @db.VarChar(100)
+    user_email            String?                 @db.VarChar(255)
+    user_mobile           String?                 @db.VarChar(20)
+    user_password         String?                 @db.VarChar(255)
+    login_sucess_count    BigInt?
+    login_failed_count    BigInt?
+    last_login_ip         String?                 @db.Inet
+    last_login_time       DateTime?               @db.Date
+    user_state            Int?
+    created_at            DateTime?               @db.Timestamp(6)
+    created_by            String?                 @db.VarChar(100)
+    last_modified_at      DateTime?               @db.Timestamp(6)
+    last_modified_by      String?                 @db.VarChar(100)
+    cart                  cart[]
+    loyalty_point_history loyalty_point_history[]
+    loyalty_program       loyalty_program[]
+    user_address          user_address[]
+    user_role             user_role?              @relation(fields: [role_id2], references: [role_id2], onDelete: Restrict, onUpdate: Restrict, map: "fk_user_inf_relations_user_rol")
+    user_profile          user_profile[]
+    user_token            user_token[]
+
+    @@index([role_id2], map: "relationship_1_fk")
+}
+
+model user_profile {
+    user_profile_id   Int                @id(map: "pk_user_profile") @unique(map: "user_profile_pk") @default(autoincrement())
+    user_id           Int?
+    user_socmed_id    Int?
+    doc_id            Int?
+    user_gender       Boolean?
+    user_birth_place  String?            @db.VarChar(100)
+    user_birth_date   DateTime?          @db.Date
+    user_bio          String?
+    user_religion     String?            @db.VarChar(15)
+    created_at        DateTime?          @db.Timestamp(6)
+    created_by        String?            @db.VarChar(100)
+    last_modified_at  DateTime?          @db.Timestamp(6)
+    last_modified_by  String?            @db.VarChar(100)
+    document          document?          @relation(fields: [doc_id], references: [doc_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_user_pro_relations_document")
+    user_info         user_info?         @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_user_pro_relations_user_inf")
+    user_social_media user_social_media? @relation(fields: [user_socmed_id], references: [user_socmed_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_user_pro_relations_user_soc")
+
+    @@index([user_socmed_id], map: "relationship_17_fk")
+    @@index([user_id], map: "relationship_18_fk")
+    @@index([doc_id], map: "relationship_19_fk")
+}
+
+model user_role {
+    role_id2         Int         @id(map: "pk_user_role") @unique(map: "user_role_pk") @default(autoincrement())
+    role_name2       String?     @db.VarChar(50)
+    role_enable      Boolean?
+    created_at       DateTime?   @db.Timestamp(6)
+    created_by       String?     @db.VarChar(100)
+    last_modified_at DateTime?   @db.Timestamp(6)
+    last_modified_by String?     @db.VarChar(100)
+    user_info        user_info[]
+}
+
+model user_social_media {
+    user_socmed_id        Int            @id(map: "pk_user_social_media") @unique(map: "user_social_media_pk") @default(autoincrement())
+    user_instagram_handle String?        @db.VarChar(255)
+    user_facebook_handle  String?        @db.VarChar(255)
+    user_twitter_handle   String?        @db.VarChar(255)
+    user_tiktok_handle    String?        @db.VarChar(255)
+    created_at            DateTime?      @db.Timestamp(6)
+    created_by            String?        @db.VarChar(100)
+    last_modified_at      DateTime?      @db.Timestamp(6)
+    last_modified_by      String?        @db.VarChar(100)
+    user_profile          user_profile[]
+}
+
+model user_token {
+    token_id2  Int        @id(map: "pk_user_token") @unique(map: "user_token_pk") @default(autoincrement())
+    user_id    Int?
+    token2     String?
+    user_agent String?
+    is_valid   Boolean?
+    expires_at DateTime?  @db.Date
+    user_info  user_info? @relation(fields: [user_id], references: [user_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_user_tok_relations_user_inf")
+
+    @@index([user_id], map: "relationship_2_fk")
+}
