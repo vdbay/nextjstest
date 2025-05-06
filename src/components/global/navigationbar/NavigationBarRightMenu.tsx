@@ -1,10 +1,14 @@
-export default function NavigationBarRightMenu() {
+import { auth } from "@/app/auth";
+import { ShoppingCart } from "lucide-react";
+import AccountButton from "./AccountButton";
+
+export default async function NavigationBarRightMenu() {
+  const session = await auth();
+
   return (
-    <div className="gap-10 hidden md:flex flex-row ">
-      <a href="/register">
-        <div>Account</div>
-      </a>
-      <div>Cart</div>
+    <div className="gap-10 hidden md:flex flex-row items-center">
+      <AccountButton />
+      <ShoppingCart />
     </div>
   );
 }

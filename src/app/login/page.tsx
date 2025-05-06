@@ -1,4 +1,5 @@
-import { ArrowBackRounded } from "@mui/icons-material";
+import GoogleButton from "@/components/ui/googlebutton";
+import { ArrowLeft } from "lucide-react";
 
 export default function Auth() {
   return (
@@ -15,7 +16,7 @@ export default function Auth() {
         <div className="p-16 bg-[#F9EDD4]">
           <a href="/">
             <div className="flex flex-row gap-2 mb-16">
-              <ArrowBackRounded /> <div className="">Back to Website</div>
+              <ArrowLeft /> <div className="">Back to Website</div>
             </div>
           </a>
           <div className="text-4xl mb-2 ">Welcome Back!</div>
@@ -71,17 +72,7 @@ export default function Auth() {
               <div className="border-t border-black-opacity-50 flex-grow"></div>
             </div>
             <div className="md:col-span-2">
-              <a
-                href="#google-login"
-                className="bg-white border-white text-black uppercase w-full flex text-center justify-center items-center h-14 gap-2"
-              >
-                <img
-                  src="/images/google.png"
-                  alt="Google Logo"
-                  className="h-6 w-6"
-                />
-                Google
-              </a>
+              <GoogleButton/>
             </div>
             <div className="flex items-center gap-2 md:col-span-2 text-center justify-center">
               <label htmlFor="terms" className="text-sm">

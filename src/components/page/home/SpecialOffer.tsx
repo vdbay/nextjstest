@@ -1,6 +1,7 @@
-
+import { Button } from "@/components/ui/button";
 import prisma from "@/lib/prisma";
 import Image from "next/image";
+import Link from "next/link";
 
 export default async function SpecialOffer() {
   const products = await prisma.product.findMany();
@@ -18,7 +19,7 @@ export default async function SpecialOffer() {
               className="flex flex-col items-center justify-center"
             >
               <Image
-                src={"/default.jpg" }
+                src={"/default.jpg"}
                 alt={product.product_name?.toString() || ""}
                 width={240}
                 height={240}
@@ -40,12 +41,9 @@ export default async function SpecialOffer() {
           ))}
         </div>
       )}
-      <a
-        href="#shop-now"
-        className="bg-gold py-6 px-14 text-lg bg-[#3c3c3c] text-white uppercase"
-      >
-        Shop Now
-      </a>
+      <Button asChild>
+        <Link href={"/"}>shop now</Link>
+      </Button>
     </div>
   );
 }

@@ -1,3 +1,6 @@
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+
 export default function LeftHero() {
   return (
     <div
@@ -13,12 +16,9 @@ export default function LeftHero() {
           Discover the power of natural skincare, tailored for your beauty
           needs.
         </p>
-        <a
-          href="#shop-now"
-          className="bg-gold py-6 px-14  text-lg bg-[#3c3c3c] text-white  uppercase"
-        >
-          Shop Now
-        </a>
+        <Button asChild>
+          <Link href={"/"}>shop now</Link>
+        </Button>
       </div>
     </div>
   );
