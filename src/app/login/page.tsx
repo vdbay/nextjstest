@@ -9,7 +9,7 @@ export default function Auth() {
         {/* kiri */}
         <div
           className="bg-cover bg-center hidden lg:flex"
-          style={{ backgroundImage: "url('/hero.jpg')" }}
+          style={{ backgroundImage: "url('/images/hero.jpg')" }}
         />
 
         {/* kanan */}
@@ -48,8 +48,8 @@ export default function Auth() {
             </div>
 
             <div className="flex items-start gap-2">
-              <input type="checkbox" id="terms" className="mt-1" required />
-              <label htmlFor="terms" className="text-sm">
+              <input type="checkbox" id="terms" className="mt-1 hover:cursor-pointer" required />
+              <label htmlFor="terms" className="text-sm hover:cursor-pointer">
                 Remember me
               </label>
             </div>
@@ -72,7 +72,7 @@ export default function Auth() {
               <div className="border-t border-black-opacity-50 flex-grow"></div>
             </div>
             <div className="md:col-span-2">
-              <GoogleButton/>
+              <GoogleButton />
             </div>
             <div className="flex items-center gap-2 md:col-span-2 text-center justify-center">
               <label htmlFor="terms" className="text-sm">

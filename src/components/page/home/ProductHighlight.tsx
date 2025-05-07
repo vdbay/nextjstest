@@ -8,24 +8,24 @@ export default function ProductHighlight() {
     <div className="mb-18 flex flex-col items-center justify-center">
       <div className="text-2xl mb-18">Your Glow Starts Here</div>
       <div className="flex flex-row h-min text-black items-center justify-center mb-8">
-        <ArrowLeft />
+        <ArrowLeft className="hover:cursor-pointer" />
         <img
-          src="./moist.png"
+          src="./images/products/cera.png"
           alt="Cera Probiotic Khasfee Imperiale"
-          className="hidden md:flex size-60"
+          className="hidden md:flex size-60 hover:cursor-pointer"
         />
         <img
-          src="./moist.png"
+          src="./images/products/amino.png"
           alt="Cera Probiotic Khasfee Imperiale"
-          className="flex h-60 max-w-svh md:size-80"
+          className="flex h-60 max-w-svh md:size-80 hover:cursor-pointer"
         />
 
         <img
-          src="./moist.png"
+          src="./images/products/lumiere.png"
           alt="Cera Probiotic Khasfee Imperiale"
-          className="hidden md:flex size-60"
+          className="hidden md:flex size-60 hover:cursor-pointer"
         />
-        <ArrowRight />
+        <ArrowRight className="hover:cursor-pointer" />
       </div>
       <div className="flex flex-col h-min text-black items-center justify-center">
         <div className="mb-4">Product Name</div>
@@ -34,7 +34,7 @@ export default function ProductHighlight() {
         </div>
         <div className="mb-6 ">Rp XXX.XXX</div>
         <Button asChild>
-          <Link href={"/"}>buy now</Link>
+          <Link href={""}>buy now</Link>
         </Button>
       </div>
     </div>

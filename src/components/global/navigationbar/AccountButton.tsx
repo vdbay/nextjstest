@@ -18,8 +18,9 @@ export default async function AccountButton() {
         <AvatarImage src={user?.image?.toString()} alt="User Avatar" />
         <AvatarFallback>{user?.name?.charAt(0).toUpperCase()}</AvatarFallback>
       </Avatar>
-      {/* {user?.name || "User"} */}
-      Logout
+      <div className="hover:cursor-pointer  hover:border-black hover:border-b-1">
+        {user?.name || "User"}
+      </div>
     </div>
   );
 }

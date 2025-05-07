@@ -3,7 +3,14 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   images: {
-    domains: ['images.ctfassets.net'],
+    remotePatterns: [
+      {
+        hostname: "images.ctfassets.net",
+      },
+      {
+        hostname: "lh3.googleusercontent.com",
+      },
+    ],
   },
 };
 

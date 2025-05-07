@@ -6,6 +6,19 @@ import Link from "next/link";
 export default async function SpecialOffer() {
   const products = await prisma.product.findMany();
 
+  const images = await prisma.document.findMany({
+    where: {
+      doc_id: {
+        in: products
+          .map((product) => product.doc_id)
+          .filter((id): id is number => id !== null),
+      },
+    },
+  });
+  const imagesMap = new Map(
+    images.map((doc) => [doc.doc_id, doc.doc_path]) // asumsi 'url' adalah nama field path gambar
+  );
+
   return (
     <div className="flex flex-col items-center justify-center mb-18">
       <div className="text-2xl mb-18">Special Offer</div>
@@ -16,15 +29,20 @@ export default async function SpecialOffer() {
           {products.map((product) => (
             <div
               key={product.product_id}
-              className="flex flex-col items-center justify-center"
+              className="flex flex-col items-center justify-center hover:cursor-pointer"
             >
               <Image
-                src={"/default.jpg"}
+                src={
+                  product.doc_id !== null
+                    ? imagesMap.get(product.doc_id) || "/images/default.jpg"
+                    : "/images/default.jpg"
+                }
                 alt={product.product_name?.toString() || ""}
                 width={240}
                 height={240}
-                className="mb-8"
+                className="mb-8 object-cover rounded-2xl"
               />
+
               {/* <img
                 src={product.doc_id?.toString() || "./default.png"}
                 alt={product.product_name?.toString()}

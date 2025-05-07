@@ -8,7 +8,7 @@ export default async function NavigationBarRightMenu() {
   return (
     <div className="gap-10 hidden md:flex flex-row items-center">
       <AccountButton />
-      <ShoppingCart />
+      <ShoppingCart className="hover:cursor-pointer"/>
     </div>
   );
 }

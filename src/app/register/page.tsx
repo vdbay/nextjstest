@@ -151,7 +151,7 @@ export default function Auth() {
         {/* kanan */}
         <div
           className="bg-cover bg-center hidden lg:flex"
-          style={{ backgroundImage: "url('/hero.jpg')" }}
+          style={{ backgroundImage: "url('/images/hero.jpg')" }}
         />
       </div>
     </div>
