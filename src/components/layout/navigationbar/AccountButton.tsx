@@ -1,4 +1,4 @@
-import { auth, signIn, signOut } from "@/app/auth";
+import { auth, signIn, signOut } from "@/lib/auth";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export default async function AccountButton() {

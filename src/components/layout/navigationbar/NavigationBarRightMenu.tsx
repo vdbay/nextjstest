@@ -1,4 +1,4 @@
-import { auth } from "@/app/auth";
+import { auth } from "@/lib/auth";
 import { ShoppingCart } from "lucide-react";
 import AccountButton from "./AccountButton";
 
@@ -8,7 +8,7 @@ export default async function NavigationBarRightMenu() {
   return (
     <div className="gap-10 hidden md:flex flex-row items-center">
       <AccountButton />
-      <ShoppingCart className="hover:cursor-pointer"/>
+      <ShoppingCart className="hover:cursor-pointer" />
     </div>
   );
 }

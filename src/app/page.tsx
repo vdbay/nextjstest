@@ -1,10 +1,10 @@
-import Footer from "@/components/global/footer/Footer";
-import NavigationBar from "@/components/global/navigationbar/NavigationBar";
-import DoubleHero from "@/components/page/home/DoubleHero";
-import Hero from "@/components/page/home/Hero";
-import ProductHighlight from "@/components/page/home/ProductHighlight";
-import SecondHero from "@/components/page/home/SecondHero";
-import SpecialOffer from "@/components/page/home/SpecialOffer";
+import Footer from "@/components/layout/footer";
+import NavigationBar from "@/components/layout/navigationbar";
+import DoubleHero from "@/components/shared/DoubleHero";
+import Hero from "@/components/shared/Hero";
+import ProductHighlight from "@/components/shared/ProductHighlight";
+import SecondHero from "@/components/shared/SecondHero";
+import SpecialOffer from "@/components/shared/SpecialOffer";
 
 export default function Home() {
   return (

@@ -1,5 +1,5 @@
 import { Button } from "./button";
-import { auth, signIn } from "@/app/auth";
+import { auth, signIn } from "@/lib/auth";
 
 export default async function GoogleButton() {
   const session = await auth();
