@@ -1,3 +1,4 @@
+import Image from "next/image";
 import { Button } from "./button";
 import { auth, signIn } from "@/lib/auth";
 
@@ -15,7 +16,12 @@ export default async function GoogleButton() {
       asChild
     >
       <div>
-        <img src="/images/google.png" alt="Google Logo" className="h-6 w-6" />
+        <Image
+          src="/images/google.png"
+          alt="Google Logo"
+          width={24}
+          height={24}
+        />
         Google
       </div>
     </Button>

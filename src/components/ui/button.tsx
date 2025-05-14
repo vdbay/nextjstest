@@ -22,6 +22,8 @@ const buttonVariants = cva(
         link: "text-primary underline-offset-4 hover:underline",
         "khasfee-default":
           "bg-[#3C3C3C] text-white rounded-none uppercase font-semibold hover:cursor-pointer",
+        "khasfee-outline":
+          "border border-[#3C3C3C] bg-white text-[#3C3C3C] rounded-none uppercase font-semibold hover:cursor-pointer",
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",

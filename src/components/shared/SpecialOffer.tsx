@@ -42,12 +42,6 @@ export default async function SpecialOffer() {
                 height={240}
                 className="mb-8 object-cover rounded-2xl"
               />
-
-              {/* <img
-                src={product.doc_id?.toString() || "./default.png"}
-                alt={product.product_name?.toString()}
-                className="size-60 mb-8 object-cover"
-              /> */}
               <div className="mb-4 font-medium">{product.product_name}</div>
               <div className="mb-4 w-40 md:w-60 text-center text-gray-400 text-sm">
                 {product.product_desc || "No description available."}

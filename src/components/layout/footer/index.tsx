@@ -1,13 +1,21 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <div className="flex flex-col">
       <div className="grid grid-cols-1 md:grid-cols-6 px-16 py-8 gap-x-8 gap-y-8 md:gap-y-0 bg-gold-khasfee">
         <div className="span md:col-span-2 flex flex-col">
-          <img
-            src="./images/logo.png"
-            alt="Khasfee Imperiale Logo"
-            className="h-16 w-fit mb-6 hover:cursor-pointer"
-          />
+          <div className="relative w-32 h-16 mb-6 hover:cursor-pointer">
+            <Image
+              src="/images/logo.png"
+              alt="Khasfee Logo"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{ width: "100%", height: "auto" }}
+            />
+          </div>
+
           <div className="text-justify">
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Accusamus
             eligendi cupiditate soluta rem, inventore repudiandae architecto!
