@@ -3,16 +3,12 @@ import { ArrowLeft } from "lucide-react";
 
 export default function Auth() {
   return (
-    <div className="overflow-x-hidden">
-      {/* kiri kanan */}
+    <div className="">
       <div className="grid grid-cols-1 lg:grid-cols-2 h-svh">
-        {/* kiri */}
         <div
           className="bg-cover bg-center hidden lg:flex"
           style={{ backgroundImage: "url('/images/hero.jpg')" }}
         />
-
-        {/* kanan */}
         <div className="p-16 bg-[#F9EDD4]">
           <a href="/">
             <div className="flex flex-row gap-2 mb-16">
@@ -48,7 +44,12 @@ export default function Auth() {
             </div>
 
             <div className="flex items-start gap-2">
-              <input type="checkbox" id="terms" className="mt-1 hover:cursor-pointer" required />
+              <input
+                type="checkbox"
+                id="terms"
+                className="mt-1 hover:cursor-pointer"
+                required
+              />
               <label htmlFor="terms" className="text-sm hover:cursor-pointer">
                 Remember me
               </label>

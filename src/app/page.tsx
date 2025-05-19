@@ -8,7 +8,7 @@ import SpecialOffer from "@/components/shared/SpecialOffer";
 
 export default function Home() {
   return (
-    <div className="overflow-x-hidden">
+    <div className="">
       <NavigationBar />
       <Hero />
       <ProductHighlight />

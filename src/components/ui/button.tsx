@@ -31,6 +31,7 @@ const buttonVariants = cva(
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
         "khasfee-default": "py-5 px-14",
+        "khasfee-small": "py-5 px-10",
       },
     },
     defaultVariants: {

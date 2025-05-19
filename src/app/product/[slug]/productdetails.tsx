@@ -1,20 +1,17 @@
-// app/product/[slug]/ProductDetail.tsx
 import NavigationBar from "@/components/layout/navigationbar";
 import Footer from "@/components/layout/footer";
 import { product } from "@prisma/client";
 import { formatPrice } from "@/utils/common";
-import { MinusIcon, PlusIcon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
 export default function ProductDetail({ product }: { product: product }) {
   return (
-    <div className="overflow-x-hidden">
+    <div className="">
       <NavigationBar />
-      <div className="flex flex-row">
-        <div className="flex w-1/2  py-18 px-30 flex-col">
-          {/* buat div aspect ratio 1:1 no max width, 100% width*/}
-          <div className="w-full flex aspect-square">
+      <div className="flex flex-col md:flex-row">
+        <div className="flex w-full md:w-1/2 py-6 md:py-18 md:pl-30 px-6 md:px-16 flex-col">
+          <div className="w-full flex aspect-square mb-4 md:mb-8">
             <Image
               src={"/images/products/lumiere.png"}
               height={0}
@@ -25,7 +22,6 @@ export default function ProductDetail({ product }: { product: product }) {
             />
           </div>
           <div className="flex flex-row">
-            {/* 4 div */}
             <div className="w-1/4 aspect-square border-b-gold-khasfee border-b-3">
               <Image
                 src={"/images/products/lumiere.png"}
@@ -68,7 +64,7 @@ export default function ProductDetail({ product }: { product: product }) {
             </div>
           </div>
         </div>
-        <div className="flex w-1/2  py-18 px-30 flex-col">
+        <div className="flex w-full md:w-1/2 py-6 md:py-18 md:pl-30 px-6 md:px-16 flex-col">
           <div className="uppercase text-sm text-black-opacity-50 mb-3">
             Facial Wash
           </div>
@@ -76,7 +72,6 @@ export default function ProductDetail({ product }: { product: product }) {
           <div className="mb-6">
             {formatPrice(product.product_price?.toNumber() ?? 0)}
           </div>
-          {/* horizontal line */}
           <div className="border-black-opacity-50 border-b  mb-6" />
           <p className="mb-6">{product.product_desc}</p>
           <div className="mb-3">Quantity:</div>
@@ -101,6 +96,15 @@ export default function ProductDetail({ product }: { product: product }) {
             minus iure quibusdam voluptatem dolor rerum. Voluptatem at maiores
             officiis autem commodi corrupti!
           </div>
+        </div>
+      </div>
+      {/* Sticky mobile action bar */}
+      <div className="fixed bottom-0 left-0 right-0 md:hidden bg-white px-4 py-3 border-t border-gray-200 z-50">
+        <div className="flex gap-3 flex-row justify-around">
+          <Button size={"khasfee-small"}>Add to Cart</Button>
+          <Button variant="khasfee-outline" size={"khasfee-small"}>
+            Buy Now
+          </Button>
         </div>
       </div>
 
