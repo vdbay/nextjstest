@@ -1,13 +1,21 @@
-import { Button } from "@/components/ui/button";
-import Link from "next/link";
+import Image from "next/image";
 
 export default function Hero() {
   return (
-    <div
-      className="relative flex h-[calc(100svh_-_72px)] items-end bg-cover bg-center text-white mb-18"
-      style={{ backgroundImage: "url('/images/hero.jpg')" }}
-    >
-      <div className="absolute inset-0 bg-gradient-to-t from-black/64 to-transparent z-10" />
+    <div className="h-[calc(100svh_-_72px)] flex">
+      <Image
+        src="/images/hero/1.jpg"
+        alt="hero"
+        width={0}
+        height={0}
+        sizes="100vw"
+        style={{
+          width: "100%",
+          height: "auto",
+          objectFit: "cover",
+          objectPosition: "center",
+        }}
+      />
     </div>
   );
 }

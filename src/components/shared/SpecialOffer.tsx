@@ -1,61 +1,53 @@
-import { Button } from "@/components/ui/button";
-import { prisma } from "@/lib/prisma";
-import Image from "next/image";
+import { getDocumentFromProduct } from "@/services/document-service";
+import { getProducts } from "@/services/product-service";
 import Link from "next/link";
+import Image from "next/image";
+import { Button } from "../ui/button";
 
 export default async function SpecialOffer() {
-  const products = await prisma.product.findMany();
-
-  const images = await prisma.document.findMany({
-    where: {
-      doc_id: {
-        in: products
-          .map((product) => product.doc_id)
-          .filter((id): id is number => id !== null),
-      },
-    },
-  });
-  const imagesMap = new Map(
-    images.map((doc) => [doc.doc_id, doc.doc_path]) // asumsi 'url' adalah nama field path gambar
+  const products = await getProducts();
+  const documents = await Promise.all(
+    products.map(async (product) => {
+      const document = await getDocumentFromProduct(product);
+      return document;
+    })
   );
-
   return (
-    <div className="flex flex-col items-center justify-center mb-18">
-      <div className="text-2xl mb-18">Special Offer</div>
-      {products.length === 0 ? (
-        <div className="text-gray-500">Belum ada produk spesial saat ini.</div>
-      ) : (
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-x-30 gap-y-18 mb-18">
-          {products.map((product) => (
-            <div
-              key={product.product_id}
-              className="flex flex-col items-center justify-center hover:cursor-pointer"
+    <>
+      <div className="my-18 text-center text-2xl">Special Offer</div>
+      <div className="grid grid-cols-1 md:grid-cols-3 md:mx-30 mb-18 gap-8">
+        {Array.from(products).map((product, index) => (
+          <div key={product.product_id} className="p-8">
+            <Link
+              href={`/products/${product.product_slug}`}
+              key={index}
+              className="flex flex-col items-center"
+              passHref
             >
-              <Image
-                src={
-                  product.doc_id !== null
-                    ? imagesMap.get(product.doc_id) || "/images/default.jpg"
-                    : "/images/default.jpg"
-                }
-                alt={product.product_name?.toString() || ""}
-                width={240}
-                height={240}
-                className="mb-8 object-cover rounded-2xl"
-              />
-              <div className="mb-4 font-medium">{product.product_name}</div>
-              <div className="mb-4 w-40 md:w-60 text-center text-gray-400 text-sm">
-                {product.product_desc || "No description available."}
+              <div className="flex justify-center items-center relative aspect-square w-60 lg:w-80">
+                <Image
+                  src={documents[index]?.doc_path || ""}
+                  alt="Product Image"
+                  fill
+                  className="object-cover object-center rounded-md"
+                />
               </div>
-              <div className="text-lg font-semibold text-gold">
-                Rp {Number(product.product_price).toLocaleString("id-ID")}
+              <div className="mt-8 text-center">{product.product_name}</div>
+              <div className="mt-4 text-black/60 text-center">
+                {product.product_desc}
               </div>
-            </div>
-          ))}
-        </div>
-      )}
-      <Button asChild>
-        <Link href={"/"}>shop now</Link>
-      </Button>
-    </div>
+              <div className="mt-4 text-center">
+                Rp {product.product_price?.toString()}
+              </div>
+            </Link>
+          </div>
+        ))}
+      </div>
+      <div className="flex justify-center items-center mb-18">
+        <Button asChild>
+          <Link href="/products">View More</Link>
+        </Button>
+      </div>
+    </>
   );
 }

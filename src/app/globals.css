@@ -43,19 +43,6 @@
   --radius-xl: calc(var(--radius) + 4px);
 }
 
-/* @media (prefers-color-scheme: dark) { */
-@media (prefers-color-scheme: light) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
-@theme {
-  --color-gold-khasfee: oklch(0.76 0.147 80.79);
-  --color-black-opacity-50: oklch(0 0 0 / 0.5);
-}
-
 :root {
   --radius: 0.625rem;
   --background: oklch(1 0 0);
@@ -129,7 +116,12 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@theme {
+  --color-gold-khasfee: #E0A526;
 }

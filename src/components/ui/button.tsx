@@ -20,8 +20,7 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        "khasfee-default":
-          "bg-[#3C3C3C] text-white rounded-none uppercase font-semibold hover:cursor-pointer",
+        khasfee: "bg-[#3C3C3C] text-white uppercase rounded-none",
         "khasfee-outline":
           "border border-[#3C3C3C] bg-white text-[#3C3C3C] rounded-none uppercase font-semibold hover:cursor-pointer",
       },
@@ -30,13 +29,12 @@ const buttonVariants = cva(
         sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
-        "khasfee-default": "py-5 px-14",
-        "khasfee-small": "py-5 px-10",
+        khasfee: "py-5 px-14",
       },
     },
     defaultVariants: {
-      variant: "khasfee-default",
-      size: "khasfee-default",
+      variant: "khasfee",
+      size: "khasfee",
     },
   }
 );

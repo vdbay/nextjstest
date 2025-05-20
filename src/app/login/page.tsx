@@ -1,5 +1,6 @@
-import GoogleButton from "@/components/ui/googlebutton";
+import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import Image from "next/image";
 
 export default function Auth() {
   return (
@@ -73,7 +74,20 @@ export default function Auth() {
               <div className="border-t border-black-opacity-50 flex-grow"></div>
             </div>
             <div className="md:col-span-2">
-              <GoogleButton />
+              <Button
+                className="bg-white border-white text-black uppercase w-full"
+                asChild
+              >
+                <div>
+                  <Image
+                    src="/images/google.png"
+                    alt="Google Logo"
+                    width={24}
+                    height={24}
+                  />
+                  Google
+                </div>
+              </Button>
             </div>
             <div className="flex items-center gap-2 md:col-span-2 text-center justify-center">
               <label htmlFor="terms" className="text-sm">

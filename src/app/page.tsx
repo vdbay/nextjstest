@@ -1,20 +1,20 @@
 import Footer from "@/components/layout/footer";
 import NavigationBar from "@/components/layout/navigationbar";
-import DoubleHero from "@/components/shared/DoubleHero";
-import Hero from "@/components/shared/Hero";
-import ProductHighlight from "@/components/shared/ProductHighlight";
-import SecondHero from "@/components/shared/SecondHero";
-import SpecialOffer from "@/components/shared/SpecialOffer";
+import BottomHero from "@/components/shared/bottomhero";
+import DoubleHero from "@/components/shared/doublehero";
+import Hero from "@/components/shared/hero";
+import ProductCarousel from "@/components/shared/productcarousel";
+import SpecialOffer from "@/components/shared/specialoffer";
 
-export default function Home() {
+export default async function Home() {
   return (
-    <div className="">
+    <div className="overflow-x-hidden">
       <NavigationBar />
       <Hero />
-      <ProductHighlight />
+      <ProductCarousel />
       <DoubleHero />
       <SpecialOffer />
-      <SecondHero />
+      <BottomHero />
       <Footer />
     </div>
   );
