@@ -20,7 +20,8 @@ const buttonVariants = cva(
         ghost:
           "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50",
         link: "text-primary underline-offset-4 hover:underline",
-        khasfee: "bg-[#3C3C3C] text-white uppercase rounded-none",
+        khasfee:
+          "bg-[#3C3C3C] text-white uppercase rounded-none hover:cursor-pointer",
         "khasfee-outline":
           "border border-[#3C3C3C] bg-white text-[#3C3C3C] rounded-none uppercase font-semibold hover:cursor-pointer",
       },

@@ -4,67 +4,53 @@ import { product } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { formatPrice } from "@/app/utils/common";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselPrevious,
+  CarouselNext,
+} from "@/components/ui/carousel";
+import { getDocumentFromProduct } from "@/services/document-service";
+import Link from "next/link";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-export default function ProductDetail({ product }: { product: product }) {
+export default async function ProductDetail({ product }: { product: product }) {
+  const document = await getDocumentFromProduct(product);
   return (
-    <div className="">
+    <>
       <NavigationBar />
-      <div className="flex flex-col md:flex-row">
-        <div className="flex w-full md:w-1/2 py-6 md:py-18 md:pl-30 px-6 md:px-16 flex-col">
-          <div className="w-full flex aspect-square mb-4 md:mb-8">
-            <Image
-              src={"/images/products/lumiere.png"}
-              height={0}
-              width={0}
-              alt="product image"
-              className="object-cover w-full h-full"
-              sizes="100vw"
-            />
-          </div>
-          <div className="flex flex-row">
-            <div className="w-1/4 aspect-square border-b-gold-khasfee border-b-3">
-              <Image
-                src={"/images/products/lumiere.png"}
-                height={0}
-                width={0}
-                alt="product image"
-                className="object-cover w-full h-full"
-                sizes="100vw"
-              />
-            </div>
-            <div className="w-1/4 aspect-square hover:cursor-pointer">
-              <Image
-                src={"/images/products/lumiere.png"}
-                height={0}
-                width={0}
-                alt="product image"
-                className="object-cover w-full h-full"
-                sizes="100vw"
-              />
-            </div>
-            <div className="w-1/4 aspect-square hover:cursor-pointer">
-              <Image
-                src={"/images/products/lumiere.png"}
-                height={0}
-                width={0}
-                alt="product image"
-                className="object-cover w-full h-full"
-                sizes="100vw"
-              />
-            </div>
-            <div className="w-1/4 aspect-square hover:cursor-pointer">
-              <Image
-                src={"/images/products/lumiere.png"}
-                height={0}
-                width={0}
-                alt="product image"
-                className="object-cover w-full h-full"
-                sizes="100vw"
-              />
-            </div>
-          </div>
+      <div className="flex flex-col lg:flex-row">
+        <div className="flex w-full lg:w-1/2 py-6 lg:py-18 lg:pl-30 px-6 lg:px-16 flex-col items-center justify-center ">
+          <Carousel
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            className="w-3/5 lg:w-full"
+          >
+            <CarouselContent>
+              <CarouselItem>
+                <Image
+                  src={document?.doc_path || ""}
+                  alt="hero"
+                  width={0}
+                  height={0}
+                  sizes="100vw"
+                  style={{
+                    width: "100%",
+                    height: "auto",
+                    objectFit: "cover",
+                    objectPosition: "center",
+                  }}
+                />
+              </CarouselItem>
+            </CarouselContent>
+            <CarouselPrevious />
+            <CarouselNext />
+          </Carousel>
         </div>
-        <div className="flex w-full md:w-1/2 py-6 md:py-18 md:pl-30 px-6 md:px-16 flex-col">
+        <div className="flex w-full lg:w-1/2 py-6 lg:py-18 lg:pl-30 px-6 lg:px-16 flex-col">
           <div className="uppercase text-sm text-black-opacity-50 mb-3">
             Facial Wash
           </div>
@@ -72,34 +58,49 @@ export default function ProductDetail({ product }: { product: product }) {
           <div className="mb-6">
             {formatPrice(product.product_price?.toNumber() ?? 0)}
           </div>
-          <div className="border-black-opacity-50 border-b  mb-6" />
+          <div className="border-black-opacity-50 border-b mb-6" />
           <p className="mb-6">{product.product_desc}</p>
-          <div className="mb-3">Quantity:</div>
-          <div className="w-37 h-13 border-black-opacity-50 border flex flex-row items-center justify-center text-center mb-6">
-            <div className="w-1/3 hover:cursor-pointer">-</div>
-            <div className="w-1/3">1</div>
-            <div className="w-1/3 hover:cursor-pointer">+</div>
-          </div>
-          <Button className="mb-3">add to cart</Button>
-          <Button className="mb-6" variant={"khasfee-outline"}>
-            buy now
-          </Button>
-          <div className="flex flex-row border-b-black-opacity-50 text-center border-b mb-4">
-            <div className="py-5 px-3 border-b-gold-khasfee border-b-3">
-              How to Apply
-            </div>
-            <div className="py-5 px-3 hover:cursor-pointer">Ingredients</div>
-          </div>
-          <div>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Eos
-            aspernatur quaerat veritatis, doloribus placeat aut fugit reiciendis
-            minus iure quibusdam voluptatem dolor rerum. Voluptatem at maiores
-            officiis autem commodi corrupti!
-          </div>
+          <Link href="https://www.tokopedia.com/khasfee/" passHref>
+            <Button className="mb-3 w-full justify-center flex">
+              <Image
+                src="/images/tokopedia.png"
+                width={24}
+                height={24}
+                alt="tokopedia-logo"
+              />{" "}
+              Buy on Tokopedia
+            </Button>
+          </Link>
+          <Link href="https://shopee.co.id/khasfee" passHref>
+            <Button
+              className="mb-6 w-full justify-center flex"
+              variant={"khasfee-outline"}
+            >
+              <Image
+                src="/images/shopee.png"
+                width={24}
+                height={24}
+                alt="shopee-logo"
+              />{" "}
+              Buy on Shopee
+            </Button>
+          </Link>
+          <Tabs defaultValue="how">
+            <TabsList>
+              <TabsTrigger value="how">How to Apply</TabsTrigger>
+              <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
+            </TabsList>
+            <TabsContent value="how">
+              <div>Make changes to your How to Apply here.</div>
+            </TabsContent>
+            <TabsContent value="ingredients">
+              Change your Ingredients here.
+            </TabsContent>
+          </Tabs>
         </div>
       </div>
 
       <Footer />
-    </div>
+    </>
   );
 }

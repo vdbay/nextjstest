@@ -12,5 +12,9 @@ export default async function ProductPage({ params }: Props) {
 
   if (!product) return notFound();
 
-  return <ProductDetail product={product} />;
+  return (
+    <div className="overflow-x-hidden">
+      <ProductDetail product={product} />
+    </div>
+  );
 }

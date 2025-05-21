@@ -3,7 +3,7 @@ import NavigationBar from "@/components/layout/navigationbar";
 import BottomHero from "@/components/shared/bottomhero";
 import DoubleHero from "@/components/shared/doublehero";
 import Hero from "@/components/shared/hero";
-import ProductCarousel from "@/components/shared/productcarousel";
+import ProductHighlight from "@/components/shared/producthighlight";
 import SpecialOffer from "@/components/shared/specialoffer";
 
 export default async function Home() {
@@ -11,7 +11,7 @@ export default async function Home() {
     <div className="overflow-x-hidden">
       <NavigationBar />
       <Hero />
-      <ProductCarousel />
+      <ProductHighlight />
       <DoubleHero />
       <SpecialOffer />
       <BottomHero />
