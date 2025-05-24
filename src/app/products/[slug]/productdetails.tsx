@@ -3,7 +3,6 @@ import Footer from "@/components/layout/footer";
 import { product } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
-import { formatPrice } from "@/app/utils/common";
 import {
   Carousel,
   CarouselContent,
@@ -14,6 +13,8 @@ import {
 import { getDocumentFromProduct } from "@/services/document-service";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Separator } from "@/components/ui/separator";
+import { formatPrice } from "@/utils/common";
 
 export default async function ProductDetail({ product }: { product: product }) {
   const document = await getDocumentFromProduct(product);
@@ -58,14 +59,14 @@ export default async function ProductDetail({ product }: { product: product }) {
           <div className="mb-6">
             {formatPrice(product.product_price?.toNumber() ?? 0)}
           </div>
-          <div className="border-black-opacity-50 border-b mb-6" />
+          <Separator className="mb-6" />
           <p className="mb-6">{product.product_desc}</p>
           <Link href="https://www.tokopedia.com/khasfee/" passHref>
             <Button className="mb-3 w-full justify-center flex">
               <Image
                 src="/images/tokopedia.png"
-                width={24}
-                height={24}
+                width={16}
+                height={16}
                 alt="tokopedia-logo"
               />{" "}
               Buy on Tokopedia
@@ -78,8 +79,8 @@ export default async function ProductDetail({ product }: { product: product }) {
             >
               <Image
                 src="/images/shopee.png"
-                width={24}
-                height={24}
+                width={16}
+                height={16}
                 alt="shopee-logo"
               />{" "}
               Buy on Shopee

@@ -1,3 +1,4 @@
+import Footer from "@/components/layout/footer";
 import NavigationBar from "@/components/layout/navigationbar";
 import Link from "next/link";
 
@@ -16,6 +17,7 @@ export default function NotFound() {
           </Link>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

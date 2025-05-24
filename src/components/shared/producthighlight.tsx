@@ -9,7 +9,7 @@ import Image from "next/image";
 import { getDocumentFromProduct } from "@/services/document-service";
 import { getProducts } from "@/services/product-service";
 import Link from "next/link";
-import { formatPrice } from "@/app/utils/common";
+import { formatPrice } from "@/utils/common";
 
 export default async function ProductHighlight() {
   const products = await getProducts();

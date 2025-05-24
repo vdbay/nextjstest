@@ -4,7 +4,7 @@ import { getDocumentFromProduct } from "@/services/document-service";
 import { getProducts } from "@/services/product-service";
 import Link from "next/link";
 import Image from "next/image";
-import { formatPrice } from "@/app/utils/common";
+import { formatPrice } from "@/utils/common";
 
 export default async function ProductsCatalogue() {
   const products = await getProducts();

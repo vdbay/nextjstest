@@ -3,7 +3,7 @@ import { getProducts } from "@/services/product-service";
 import Link from "next/link";
 import Image from "next/image";
 import { Button } from "../ui/button";
-import { formatPrice } from "@/app/utils/common";
+
 import {
   Carousel,
   CarouselContent,
@@ -11,6 +11,7 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
+import { formatPrice } from "@/utils/common";
 
 export default async function SpecialOffer() {
   const products = await getProducts();

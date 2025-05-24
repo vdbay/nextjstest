@@ -20,8 +20,10 @@ import {
   Drawer,
 } from "../ui/drawer";
 import Link from "next/link";
+import { checkLoggedIn, logout } from "@/lib/actions/auth";
 
-export default function NavigationBar() {
+export default async function NavigationBar() {
+  const isLoggedIn = await checkLoggedIn();
   return (
     <div className="h-18 w-full flex items-center px-8 md:px-16 justify-center">
       <div className="flex-1 hidden md:flex">
@@ -77,7 +79,7 @@ export default function NavigationBar() {
                     href="/"
                     className={
                       navigationMenuTriggerStyle() +
-                      " bg-transparent hover:bg-transparent underline decoration-gold-khasfee decoration-2 text-base text-gold-khasfee hover:text-gold-khasfee m-0"
+                      " bg-transparent hover:bg-transparent underline decoration-gold-khasfee decoration-2 text-base text-gold-khasfee hover:text-gold-khasfee m-0 focus:text-gold-khasfee"
                     }
                   >
                     Home
@@ -137,15 +139,21 @@ export default function NavigationBar() {
               </NavigationMenuLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/login"
-                className={
-                  navigationMenuTriggerStyle() +
-                  " bg-transparent hover:bg-transparent hover:underline decoration-2 text-base"
-                }
-              >
-                Login
-              </NavigationMenuLink>
+              {isLoggedIn ? (
+                <NavigationMenuLink
+                  onClick={logout}
+                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:underline decoration-2 text-base hover:cursor-pointer`}
+                >
+                  Logout
+                </NavigationMenuLink>
+              ) : (
+                <NavigationMenuLink
+                  href="/login"
+                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:underline decoration-2 text-base`}
+                >
+                  Login
+                </NavigationMenuLink>
+              )}
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
