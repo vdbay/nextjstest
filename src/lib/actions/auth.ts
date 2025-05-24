@@ -7,12 +7,18 @@ import { LoginType } from "@/lib/validators/login";
 import { RegisterType } from "../validators/register";
 
 export async function login(formData: LoginType) {
+  const emailRedirectTo =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/"
+      : process.env.NEXT_PUBLIC_SITE_URL;
+
   const supabase = await createClient();
 
   const { data: dataUser, error } = await supabase.auth.signInWithOtp({
     email: formData.email,
     options: {
       shouldCreateUser: false,
+      emailRedirectTo: emailRedirectTo,
     },
   });
 
@@ -31,12 +37,18 @@ export async function login(formData: LoginType) {
 }
 
 export async function register(formData: RegisterType) {
+  const emailRedirectTo =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/"
+      : process.env.NEXT_PUBLIC_SITE_URL;
+
   const supabase = await createClient();
 
   const { data: dataUser, error } = await supabase.auth.signInWithOtp({
     email: formData.email,
     options: {
       shouldCreateUser: true,
+      emailRedirectTo: emailRedirectTo,
     },
   });
 
