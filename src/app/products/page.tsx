@@ -35,9 +35,6 @@ export default async function ProductsCatalogue() {
                 />
               </div>
               <div className="mt-8 text-center">{product.product_name}</div>
-              <div className="mt-4 text-black/60 text-center">
-                {product.product_desc}
-              </div>
               <div className="mt-4 text-center">
                 {formatPrice(product.product_price?.toNumber() ?? 0)}
               </div>

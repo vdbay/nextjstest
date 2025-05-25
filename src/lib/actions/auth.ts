@@ -8,9 +8,7 @@ import { RegisterType } from "../validators/register";
 
 export async function login(formData: LoginType) {
   const emailRedirectTo =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/"
-      : process.env.NEXT_PUBLIC_SITE_URL;
+    process.env.NEXT_PUBLIC_EMAIL_REDIRECT_TO ?? "http://localhost:3000/";
 
   const supabase = await createClient();
 
@@ -38,9 +36,7 @@ export async function login(formData: LoginType) {
 
 export async function register(formData: RegisterType) {
   const emailRedirectTo =
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:3000/"
-      : process.env.NEXT_PUBLIC_SITE_URL;
+    process.env.NEXT_PUBLIC_EMAIL_REDIRECT_TO ?? "http://localhost:3000/";
 
   const supabase = await createClient();
 

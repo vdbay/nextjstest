@@ -1,10 +1,7 @@
 import {
   NavigationMenu,
   NavigationMenuItem,
-  NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu";
 import { MenuIcon, Sheet } from "lucide-react";
 import Image from "next/image";
@@ -21,6 +18,7 @@ import {
 } from "../ui/drawer";
 import Link from "next/link";
 import { checkLoggedIn, logout } from "@/lib/actions/auth";
+import NavLink from "@/components/shared/navlink";
 
 export default async function NavigationBar() {
   const isLoggedIn = await checkLoggedIn();
@@ -30,37 +28,13 @@ export default async function NavigationBar() {
         <NavigationMenu>
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/"
-                className={
-                  navigationMenuTriggerStyle() +
-                  " bg-transparent hover:bg-transparent underline decoration-gold-khasfee decoration-2 text-base text-gold-khasfee hover:text-gold-khasfee"
-                }
-              >
-                Home
-              </NavigationMenuLink>
+              <NavLink href="/">Home</NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/products"
-                className={
-                  navigationMenuTriggerStyle() +
-                  " bg-transparent hover:bg-transparent hover:underline decoration-2 text-base"
-                }
-              >
-                Products
-              </NavigationMenuLink>
+              <NavLink href="/products">Products</NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuLink
-                href="/about"
-                className={
-                  navigationMenuTriggerStyle() +
-                  " bg-transparent hover:bg-transparent hover:underline decoration-2 text-base"
-                }
-              >
-                About Us
-              </NavigationMenuLink>
+              <NavLink href="/about">About Us</NavLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -75,37 +49,13 @@ export default async function NavigationBar() {
             <NavigationMenu>
               <NavigationMenuList className="flex flex-col justify-start items-start">
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/"
-                    className={
-                      navigationMenuTriggerStyle() +
-                      " bg-transparent hover:bg-transparent underline decoration-gold-khasfee decoration-2 text-base text-gold-khasfee hover:text-gold-khasfee m-0 focus:text-gold-khasfee"
-                    }
-                  >
-                    Home
-                  </NavigationMenuLink>
+                  <NavLink href="/">Home</NavLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/products"
-                    className={
-                      navigationMenuTriggerStyle() +
-                      " bg-transparent hover:bg-transparent hover:underline decoration-2 text-base"
-                    }
-                  >
-                    Products
-                  </NavigationMenuLink>
+                  <NavLink href="/products">Products</NavLink>
                 </NavigationMenuItem>
                 <NavigationMenuItem>
-                  <NavigationMenuLink
-                    href="/about"
-                    className={
-                      navigationMenuTriggerStyle() +
-                      " bg-transparent hover:bg-transparent hover:underline decoration-2 text-base"
-                    }
-                  >
-                    About Us
-                  </NavigationMenuLink>
+                  <NavLink href="/about">About Us</NavLink>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
@@ -127,32 +77,14 @@ export default async function NavigationBar() {
       <div className="flex-1 text-right justify-end flex">
         <NavigationMenu>
           <NavigationMenuList>
-            <NavigationMenuItem className="hidden md:flex">
-              <NavigationMenuLink
-                href="/cart"
-                className={
-                  navigationMenuTriggerStyle() +
-                  " bg-transparent hover:bg-transparent hover:underline decoration-2 text-base"
-                }
-              >
-                Cart
-              </NavigationMenuLink>
+            <NavigationMenuItem className="hidden">
+              <NavLink href="/cart">Cart</NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
               {isLoggedIn ? (
-                <NavigationMenuLink
-                  onClick={logout}
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:underline decoration-2 text-base hover:cursor-pointer`}
-                >
-                  Logout
-                </NavigationMenuLink>
+                <NavLink onClick={logout}>Logout</NavLink>
               ) : (
-                <NavigationMenuLink
-                  href="/login"
-                  className={`${navigationMenuTriggerStyle()} bg-transparent hover:bg-transparent hover:underline decoration-2 text-base`}
-                >
-                  Login
-                </NavigationMenuLink>
+                <NavLink href="/login">Login</NavLink>
               )}
             </NavigationMenuItem>
           </NavigationMenuList>
