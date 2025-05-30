@@ -1,6 +1,6 @@
 import Footer from "@/components/layout/footer";
 import NavigationBar from "@/components/layout/navigationbar";
-import { getDocumentFromProduct } from "@/services/document-service";
+import { getDocumentsFromProduct } from "@/services/document-service";
 import { getProducts } from "@/services/product-service";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,7 +10,7 @@ export default async function ProductsCatalogue() {
   const products = await getProducts();
   const documents = await Promise.all(
     products.map(async (product) => {
-      const document = await getDocumentFromProduct(product);
+      const document = await getDocumentsFromProduct(product);
       return document;
     })
   );
@@ -28,7 +28,7 @@ export default async function ProductsCatalogue() {
             >
               <div className="flex justify-center items-center relative aspect-square w-60 lg:w-80">
                 <Image
-                  src={documents[index]?.doc_path || ""}
+                  src={documents[index]?.[0]?.doc_path || ""}
                   alt="Product Image"
                   fill
                   className="object-cover object-center rounded-md"

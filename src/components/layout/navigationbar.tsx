@@ -3,9 +3,8 @@ import {
   NavigationMenuItem,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import { MenuIcon, Sheet } from "lucide-react";
+import { MenuIcon } from "lucide-react";
 import Image from "next/image";
-import { Button } from "../ui/button";
 import {
   DrawerTrigger,
   DrawerContent,
@@ -15,7 +14,7 @@ import {
   DrawerFooter,
   DrawerClose,
   Drawer,
-} from "../ui/drawer";
+} from "@/components/ui/drawer";
 import Link from "next/link";
 import { checkLoggedIn, logout } from "@/lib/actions/auth";
 import NavLink from "@/components/shared/navlink";

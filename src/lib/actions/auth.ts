@@ -4,11 +4,11 @@ import { revalidatePath } from "next/cache";
 
 import { createClient } from "@/utils/supabase/server";
 import { LoginType } from "@/lib/validators/login";
-import { RegisterType } from "../validators/register";
+import { RegisterType } from "@/lib/validators/register";
 
 export async function login(formData: LoginType) {
   const emailRedirectTo =
-    process.env.NEXT_PUBLIC_EMAIL_REDIRECT_TO ?? "http://localhost:3000/";
+    process.env.EMAIL_REDIRECT_TO ?? "http://localhost:3000/";
 
   const supabase = await createClient();
 
@@ -36,7 +36,7 @@ export async function login(formData: LoginType) {
 
 export async function register(formData: RegisterType) {
   const emailRedirectTo =
-    process.env.NEXT_PUBLIC_EMAIL_REDIRECT_TO ?? "http://localhost:3000/";
+    process.env.EMAIL_REDIRECT_TO ?? "http://localhost:3000/";
 
   const supabase = await createClient();
 

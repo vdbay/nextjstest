@@ -6,7 +6,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import Image from "next/image";
-import { getDocumentFromProduct } from "@/services/document-service";
+import { getDocumentsFromProduct } from "@/services/document-service";
 import { getProducts } from "@/services/product-service";
 import Link from "next/link";
 import { formatPrice } from "@/utils/common";
@@ -15,7 +15,7 @@ export default async function ProductHighlight() {
   const products = await getProducts();
   const documents = await Promise.all(
     products.map(async (product) => {
-      const document = await getDocumentFromProduct(product);
+      const document = await getDocumentsFromProduct(product);
       return document;
     })
   );
@@ -43,7 +43,7 @@ export default async function ProductHighlight() {
                     >
                       <div className="flex justify-center items-center relative aspect-square w-60 lg:w-80">
                         <Image
-                          src={documents[index]?.doc_path || ""}
+                          src={documents[index]?.[0]?.doc_path || ""}
                           alt="Product Image"
                           fill
                           className="object-cover object-center rounded-md"
@@ -60,8 +60,21 @@ export default async function ProductHighlight() {
                 </CarouselItem>
               ))}
             </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
+            {/* Render prev/next if images > 1, but on large screens only if images > 3 */}
+            {products.length > 1 && (
+              <>
+                <div className="block lg:hidden">
+                  <CarouselPrevious />
+                  <CarouselNext />
+                </div>
+                {products.length > 3 && (
+                  <div className="hidden lg:block">
+                    <CarouselPrevious />
+                    <CarouselNext />
+                  </div>
+                )}
+              </>
+            )}
           </Carousel>
         </div>
       </div>

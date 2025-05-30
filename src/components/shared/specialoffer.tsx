@@ -1,8 +1,8 @@
-import { getDocumentFromProduct } from "@/services/document-service";
+import { getDocumentsFromProduct } from "@/services/document-service";
 import { getProducts } from "@/services/product-service";
 import Link from "next/link";
 import Image from "next/image";
-import { Button } from "../ui/button";
+import { Button } from "@/components//ui/button";
 
 import {
   Carousel,
@@ -17,7 +17,7 @@ export default async function SpecialOffer() {
   const products = await getProducts();
   const documents = await Promise.all(
     products.map(async (product) => {
-      const document = await getDocumentFromProduct(product);
+      const document = await getDocumentsFromProduct(product);
       return document;
     })
   );
@@ -37,7 +37,7 @@ export default async function SpecialOffer() {
               >
                 <div className="flex justify-center items-center relative aspect-square w-60 lg:w-80">
                   <Image
-                    src={documents[index]?.doc_path || ""}
+                    src={documents[index]?.[0]?.doc_path || ""}
                     alt="Product Image"
                     fill
                     className="object-cover object-center rounded-md"
@@ -73,7 +73,7 @@ export default async function SpecialOffer() {
                     >
                       <div className="flex justify-center items-center relative aspect-square w-60 lg:w-80">
                         <Image
-                          src={documents[index]?.doc_path || ""}
+                          src={documents[index]?.[0]?.doc_path || ""}
                           alt="Product Image"
                           fill
                           className="object-cover object-center rounded-md"

@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ProductDetail from "./productdetails";
+import ProductDetail from "@/app/products/[slug]/productdetails";
 import { getProductBySlug } from "@/services/product-service";
 
 type Props = {

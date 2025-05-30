@@ -10,7 +10,6 @@ datasource db {
 
 model product {
   product_id             Int                      @id(map: "pk_product") @unique(map: "product_pk") @default(autoincrement())
-  doc_id                 Int?
   product_name           String?                  @db.VarChar(100)
   product_desc           String?
   product_stock          BigInt?
@@ -23,28 +22,31 @@ model product {
   last_modified_at       DateTime?                @db.Timestamp(6)
   last_modified_by       String?                  @db.VarChar(100)
   product_slug           String?                  @unique
+  product_instructions   String?
+  product_ingredients    String?
+  product_link_shopee    String?
+  product_link_tokped    String?
   cart_item              cart_item[]
   catalogue_product      catalogue_product[]
   checkout_item_snapshot checkout_item_snapshot[]
-  document               document?                @relation(fields: [doc_id], references: [doc_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_product_relations_document")
-
-  @@index([doc_id], map: "relationship_16_fk")
+  document_product       document_product[]
 }
 
 model advertisement {
-  ads_id           Int       @id(map: "pk_advertisement") @unique(map: "advertisement_pk") @default(autoincrement())
-  doc_id           Int?
-  ads_title        String?   @db.VarChar(100)
-  ads_desc         String?
-  ads_redirect_url String?   @db.VarChar(500)
-  ads_start_date   DateTime? @db.Date
-  ads_end_date     DateTime? @db.Date
-  is_active        Boolean?
-  created_at       DateTime? @db.Timestamp(6)
-  created_by       String?   @db.VarChar(100)
-  last_modified_at DateTime? @db.Timestamp(6)
-  last_modified_by String?   @db.VarChar(100)
-  document         document? @relation(fields: [doc_id], references: [doc_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_advertis_relations_document")
+  ads_id                 Int                      @id(map: "pk_advertisement") @unique(map: "advertisement_pk") @default(autoincrement())
+  doc_id                 Int?
+  ads_title              String?                  @db.VarChar(100)
+  ads_desc               String?
+  ads_redirect_url       String?                  @db.VarChar(500)
+  ads_start_date         DateTime?                @db.Date
+  ads_end_date           DateTime?                @db.Date
+  is_active              Boolean?
+  created_at             DateTime?                @db.Timestamp(6)
+  created_by             String?                  @db.VarChar(100)
+  last_modified_at       DateTime?                @db.Timestamp(6)
+  last_modified_by       String?                  @db.VarChar(100)
+  document               document?                @relation(fields: [doc_id], references: [doc_id], onDelete: Restrict, onUpdate: Restrict, map: "fk_advertis_relations_document")
+  advertisement_document advertisement_document[]
 
   @@index([doc_id], map: "relationship_20_fk")
 }
@@ -128,18 +130,19 @@ model checkout_item_snapshot {
 }
 
 model document {
-  doc_id            Int             @id(map: "pk_document") @default(autoincrement())
-  doc_original_name String?         @db.VarChar(255)
-  doc_type          String?         @db.VarChar(50)
-  doc_size          BigInt?
-  doc_path          String?         @db.VarChar(500)
-  created_at        DateTime?       @db.Timestamp(6)
-  created_by        String?         @db.VarChar(100)
-  last_modified_at  DateTime?       @db.Timestamp(6)
-  last_modified_by  String?         @db.VarChar(100)
-  advertisement     advertisement[]
-  product           product[]
-  user_profile      user_profile[]
+  doc_id                 Int                      @id(map: "pk_document") @default(autoincrement())
+  doc_original_name      String?                  @db.VarChar(255)
+  doc_type               String?                  @db.VarChar(50)
+  doc_size               BigInt?
+  doc_path               String?                  @db.VarChar(500)
+  created_at             DateTime?                @db.Timestamp(6)
+  created_by             String?                  @db.VarChar(100)
+  last_modified_at       DateTime?                @db.Timestamp(6)
+  last_modified_by       String?                  @db.VarChar(100)
+  advertisement          advertisement[]
+  advertisement_document advertisement_document[]
+  document_product       document_product[]
+  user_profile           user_profile[]
 }
 
 model loyalty_point_history {
@@ -355,7 +358,7 @@ model user_token {
 }
 
 model catalogue_product {
-  cat_prod_id      BigInt     @id @unique @default(autoincrement())
+  cat_prod_id      Int        @id @unique @default(autoincrement())
   catalogue_id     Int?
   product_id       Int?
   created_at       DateTime?  @db.Timestamptz(6)
@@ -364,4 +367,28 @@ model catalogue_product {
   last_modified_by String?    @db.VarChar
   catalogue        catalogue? @relation(fields: [catalogue_id], references: [catalogue_id], onDelete: NoAction, onUpdate: NoAction)
   product          product?   @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model document_product {
+  doc_prod_id      Int       @id @unique @default(autoincrement())
+  document_id      Int?
+  product_id       Int?
+  created_at       DateTime? @db.Timestamptz(6)
+  created_by       String?   @db.VarChar
+  last_modified_at DateTime? @db.Timestamptz(6)
+  last_modified_by String?   @db.VarChar
+  document         document? @relation(fields: [document_id], references: [doc_id], onDelete: NoAction, onUpdate: NoAction)
+  product          product?  @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model advertisement_document {
+  ads_doc_id       Int            @id @unique(map: "advertisement_document_doc_prod_id_key") @default(autoincrement())
+  document_id      Int?
+  ads_id           Int?
+  created_at       DateTime?      @db.Timestamptz(6)
+  created_by       String?        @db.VarChar
+  last_modified_at DateTime?      @db.Timestamptz(6)
+  last_modified_by String?        @db.VarChar
+  advertisement    advertisement? @relation(fields: [ads_id], references: [ads_id], onDelete: NoAction, onUpdate: NoAction)
+  document         document?      @relation(fields: [document_id], references: [doc_id], onDelete: NoAction, onUpdate: NoAction)
 }

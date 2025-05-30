@@ -2,14 +2,24 @@ import { prisma } from "@/lib/prisma";
 
 import { product } from "@prisma/client";
 
-export async function getDocumentFromProduct(myproduct: product) {
-  if (myproduct.doc_id == null) {
+export async function getDocumentsFromProduct(myproduct: product) {
+  if (myproduct == null) {
     return null;
   }
-  const document = await prisma.document.findFirst({
+  const documents = await prisma.document_product.findMany({
     where: {
-      doc_id: myproduct.doc_id,
+      product_id: myproduct.product_id,
     },
   });
-  return document;
+  const documentIds = documents
+    .map((doc) => doc.document_id)
+    .filter((id: number | null): id is number => id !== null);
+  const documentDetails = await prisma.document.findMany({
+    where: {
+      doc_id: {
+        in: documentIds,
+      },
+    },
+  });
+  return documentDetails;
 }

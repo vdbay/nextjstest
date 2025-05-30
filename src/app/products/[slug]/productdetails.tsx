@@ -10,46 +10,68 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import { getDocumentFromProduct } from "@/services/document-service";
+import { getDocumentsFromProduct } from "@/services/document-service";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/utils/common";
 
 export default async function ProductDetail({ product }: { product: product }) {
-  const document = await getDocumentFromProduct(product);
+  const documents = await getDocumentsFromProduct(product);
   return (
     <>
       <NavigationBar />
       <div className="flex flex-col lg:flex-row">
         <div className="flex w-full lg:w-1/2 py-6 lg:py-18 lg:pl-30 px-6 lg:px-16 flex-col items-center justify-center ">
-          <Carousel
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            className="w-3/5 lg:w-full"
-          >
-            <CarouselContent>
-              <CarouselItem>
-                <Image
-                  src={document?.doc_path || ""}
-                  alt="hero"
-                  width={0}
-                  height={0}
-                  sizes="100vw"
-                  style={{
-                    width: "100%",
-                    height: "auto",
-                    objectFit: "cover",
-                    objectPosition: "center",
-                  }}
-                />
-              </CarouselItem>
-            </CarouselContent>
-            <CarouselPrevious />
-            <CarouselNext />
-          </Carousel>
+          {documents && documents.length > 1 ? (
+            <Carousel
+              opts={{
+                align: "start",
+                loop: true,
+              }}
+              className="w-3/5 lg:w-full"
+            >
+              <CarouselContent>
+                {documents.map((doc, idx) => (
+                  <CarouselItem key={doc.doc_id || idx}>
+                    <Image
+                      src={doc.doc_path || ""}
+                      alt={`product-image-${idx + 1}`}
+                      width={0}
+                      height={0}
+                      sizes="100vw"
+                      style={{
+                        width: "100%",
+                        height: "auto",
+                        objectFit: "cover",
+                        objectPosition: "center",
+                      }}
+                    />
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious />
+              <CarouselNext />
+            </Carousel>
+          ) : documents && documents.length === 1 ? (
+            <Image
+              src={documents[0].doc_path || ""}
+              alt="product-image-1"
+              width={0}
+              height={0}
+              sizes="100vw"
+              style={{
+                width: "100%",
+                height: "auto",
+                objectFit: "cover",
+                objectPosition: "center",
+              }}
+            />
+          ) : (
+            <div className="w-full h-64 flex items-center justify-center bg-gray-100 text-gray-400">
+              No images available
+            </div>
+          )}
         </div>
         <div className="flex w-full lg:w-1/2 py-6 lg:py-18 lg:pl-30 px-6 lg:px-16 flex-col">
           <div className="uppercase text-sm text-black-opacity-50 mb-3">
@@ -61,7 +83,7 @@ export default async function ProductDetail({ product }: { product: product }) {
           </div>
           <Separator className="mb-6" />
           <p className="mb-6">{product.product_desc}</p>
-          <Link href="https://www.tokopedia.com/khasfee/" passHref>
+          <Link href={product.product_link_tokped ?? "#"} passHref>
             <Button className="mb-3 w-full justify-center flex">
               <Image
                 src="/images/tokopedia.png"
@@ -72,7 +94,7 @@ export default async function ProductDetail({ product }: { product: product }) {
               Buy on Tokopedia
             </Button>
           </Link>
-          <Link href="https://shopee.co.id/khasfee" passHref>
+          <Link href={product.product_link_shopee ?? "#"} passHref>
             <Button
               className="mb-6 w-full justify-center flex"
               variant={"khasfee-outline"}
@@ -86,16 +108,16 @@ export default async function ProductDetail({ product }: { product: product }) {
               Buy on Shopee
             </Button>
           </Link>
-          <Tabs defaultValue="how">
+          <Tabs defaultValue="ingredients">
             <TabsList>
-              <TabsTrigger value="how">How to Apply</TabsTrigger>
               <TabsTrigger value="ingredients">Ingredients</TabsTrigger>
+              <TabsTrigger value="how">How to Apply</TabsTrigger>
             </TabsList>
             <TabsContent value="how">
-              <div>Make changes to your How to Apply here.</div>
+              <div>{product.product_instructions}</div>
             </TabsContent>
             <TabsContent value="ingredients">
-              Change your Ingredients here.
+              {product.product_ingredients}
             </TabsContent>
           </Tabs>
         </div>
