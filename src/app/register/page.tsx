@@ -3,6 +3,7 @@ import RegisterForm from "@/components/shared/registerform";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Register() {
   return (
@@ -17,7 +18,9 @@ export default function Register() {
 
           <div>
             <div className="text-4xl mb-8 ">Create an Account</div>
-            <RegisterForm />
+            <Suspense fallback={null}>
+              <RegisterForm />
+            </Suspense>
             <div className="flex items-center gap-2 md:col-span-2 text-center justify-center">
               Already have an account?{" "}
               <LinkKeep href={"/login"} className="underline">
