@@ -16,10 +16,12 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 
-import { RegisterSchema, RegisterType } from "@/lib/validators/register";
+import { RegisterSchema, RegisterType } from "@/lib/validators/auth";
 import { register } from "@/lib/actions/auth";
+import { useSearchParams } from "next/navigation";
 
 export default function RegisterForm() {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +37,8 @@ export default function RegisterForm() {
     setErrorMessage("");
 
     try {
-      const result = await register(values);
+      const next = searchParams.get("next") || "/";
+      const result = await register(values, next);
 
       if (!result.data) {
         form.setError("root", { message: result.message });

@@ -1,3 +1,4 @@
+import LinkKeep from "@/components/shared/linkkeep";
 import LoginForm from "@/components/shared/loginform";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
@@ -30,9 +31,9 @@ export default function Login() {
             <LoginForm />
             <div className="flex items-center gap-2 md:col-span-2 text-center justify-center">
               Don't have an account?{" "}
-              <Link href={"/register"} className="underline">
+              <LinkKeep href={"/register"} className="underline">
                 Register
-              </Link>
+              </LinkKeep>
             </div>
           </div>
           <div className="flex-1" />

@@ -16,11 +16,11 @@ import {
   Drawer,
 } from "@/components/ui/drawer";
 import Link from "next/link";
-import { checkLoggedIn, logout } from "@/lib/actions/auth";
+import { getUserInfoFromUserEmail, logout } from "@/lib/actions/auth";
 import NavLink from "@/components/shared/navlink";
 
 export default async function NavigationBar() {
-  const isLoggedIn = await checkLoggedIn();
+  const userInfo = await getUserInfoFromUserEmail();
   return (
     <div className="h-18 w-full flex items-center px-8 md:px-16 justify-center">
       <div className="flex-1 hidden md:flex">
@@ -80,8 +80,10 @@ export default async function NavigationBar() {
               <NavLink href="/cart">Cart</NavLink>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              {isLoggedIn ? (
-                <NavLink onClick={logout}>Logout</NavLink>
+              {userInfo ? (
+                <NavLink onClick={logout} className="hover:cursor-pointer">
+                  {userInfo.user_name} | Logout
+                </NavLink>
               ) : (
                 <NavLink href="/login">Login</NavLink>
               )}
