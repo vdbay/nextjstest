@@ -18,8 +18,10 @@ import {
 
 import { LoginSchema, LoginType } from "@/lib/validators/auth";
 import { login } from "@/lib/actions/auth";
+import { useSearchParams } from "next/navigation";
 
 export default function LoginForm() {
+  const searchParams = useSearchParams();
   const [isLoading, setIsLoading] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,7 +37,8 @@ export default function LoginForm() {
     setErrorMessage("");
 
     try {
-      const result = await login(values);
+      const next = searchParams.get("next") || "/";
+      const result = await login(values, next);
 
       if (!result.data) {
         form.setError("root", { message: result.message });

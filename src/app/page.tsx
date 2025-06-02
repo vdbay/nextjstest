@@ -2,7 +2,7 @@ import Footer from "@/components/layout/footer";
 import NavigationBar from "@/components/layout/navigationbar";
 import BottomHero from "@/components/shared/bottomhero";
 import DoubleHero from "@/components/shared/doublehero";
-import Hero from "@/components/shared/hero";
+import Hero from "@/components/shared/Hero";
 import ProductHighlight from "@/components/shared/producthighlight";
 import SpecialOffer from "@/components/shared/specialoffer";
 

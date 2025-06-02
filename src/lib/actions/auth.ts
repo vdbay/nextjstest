@@ -57,11 +57,22 @@ export async function register(formData: RegisterType, next: string) {
   };
 }
 
-export async function login(formData: LoginType) {
-  const emailRedirectTo =
-    process.env.EMAIL_REDIRECT_TO ?? "http://localhost:3000";
+export async function login(formData: LoginType, next: string) {
+  if (!(await checkEmailExists(formData.email))) {
+    return {
+      data: false,
+      message: "Email does not exist, please register first.",
+    };
+  }
 
   const supabase = await createClient();
+
+  const emailRedirectTo = generateRedirectUrl(
+    "email",
+    ActionEnum.Login,
+    next,
+    Date.now().toString()
+  );
 
   const { error } = await supabase.auth.signInWithOtp({
     email: formData.email,

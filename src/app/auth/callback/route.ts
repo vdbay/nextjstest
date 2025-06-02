@@ -42,15 +42,10 @@ export async function GET(request: NextRequest) {
         console.log("Username is required for registration.");
         return redirect("/error");
       }
-      const resp = await registerUserInfo(email, username);
-      if (!resp.data) {
-        console.log("Failed to register user info:", resp.message);
-        return redirect("/error");
-      }
-      return register(token_hash, type, next);
+      return register(token_hash, type, next, email, username);
 
     case ActionEnum.Login:
-      return login({ token_hash, type }, next);
+      return login(token_hash, type, next);
 
     default:
       console.log("Invalid action type.");
@@ -58,7 +53,13 @@ export async function GET(request: NextRequest) {
   }
 }
 
-async function register(token_hash: string, type: EmailOtpType, next: string) {
+async function register(
+  token_hash: string,
+  type: EmailOtpType,
+  next: string,
+  email: string,
+  username: string
+) {
   const supabase = await createClient();
   const { error } = await supabase.auth.verifyOtp({
     token_hash: token_hash,
@@ -68,12 +69,20 @@ async function register(token_hash: string, type: EmailOtpType, next: string) {
     console.log("Error during registration:", error.message);
     return redirect("/error");
   }
+  const resp = await registerUserInfo(email, username);
+  if (!resp.data) {
+    console.log("Failed to register user info:", resp.message);
+    return redirect("/error");
+  }
   return redirect(next);
 }
 
-async function login(params: VerifyTokenHashParams, next: string) {
+async function login(token_hash: string, type: EmailOtpType, next: string) {
   const supabase = await createClient();
-  const { error } = await supabase.auth.verifyOtp(params);
+  const { error } = await supabase.auth.verifyOtp({
+    token_hash: token_hash,
+    type: type,
+  });
   if (error) {
     console.log("Error during login:", error.message);
     return redirect("/error");

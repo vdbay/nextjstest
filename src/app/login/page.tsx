@@ -3,6 +3,7 @@ import LoginForm from "@/components/shared/loginform";
 import { ArrowLeft } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default function Login() {
   return (
@@ -28,7 +29,9 @@ export default function Login() {
 
           <div>
             <div className="text-4xl mb-8 ">Welcome Back!</div>
-            <LoginForm />
+            <Suspense fallback={null}>
+              <LoginForm />
+            </Suspense>
             <div className="flex items-center gap-2 md:col-span-2 text-center justify-center">
               Don't have an account?{" "}
               <LinkKeep href={"/register"} className="underline">

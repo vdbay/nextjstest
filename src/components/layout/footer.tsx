@@ -79,9 +79,9 @@ export default function Footer() {
         <div className="flex flex-col">
           <div className="mb-6">Business with Us</div>
           <div className="flex flex-col gap-3">
-            <Link href="/reseller" passHref>
+            <Link href="/register" passHref>
               <div className=" text-black opacity-50 cursor-pointer">
-                Login/Register Reseller
+                Register NOW
               </div>
             </Link>
             <Link href="/khasfeeliates" passHref>
