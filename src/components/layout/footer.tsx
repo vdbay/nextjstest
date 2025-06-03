@@ -54,16 +54,6 @@ export default function Footer() {
             <Link href="/faq" passHref>
               <div className=" text-black opacity-50 cursor-pointer">FAQ</div>
             </Link>
-            <Link href="/shipping-returns" passHref>
-              <div className=" text-black opacity-50 cursor-pointer">
-                Shipping & Returns
-              </div>
-            </Link>
-            <Link href="/how-to-order" passHref>
-              <div className=" text-black opacity-50 cursor-pointer">
-                How to Order
-              </div>
-            </Link>
             <Link href="/privacy-policy" passHref>
               <div className=" text-black opacity-50 cursor-pointer">
                 Privacy Policy
