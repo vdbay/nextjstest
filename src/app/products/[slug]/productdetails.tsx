@@ -9,20 +9,20 @@ import {
   CarouselPrevious,
   CarouselNext,
 } from "@/components/ui/carousel";
-import { getDocumentsFromProduct } from "@/services/document-service";
 import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/utils/common";
 import { ProductDTO } from "@/lib/dto/product.dto";
 import ImageContent from "@/components/content/imagecontent";
+import { getDocumentsFromProductById } from "@/services/document-service";
 
 export default async function ProductDetail({
   product,
 }: {
   product: ProductDTO;
 }) {
-  const documents = await getDocumentsFromProduct(product);
+  const documents = await getDocumentsFromProductById(product.product_id);
   return (
     <>
       <NavigationBar />
@@ -38,9 +38,9 @@ export default async function ProductDetail({
             >
               <CarouselContent>
                 {documents.map((doc, idx) => (
-                  <CarouselItem key={doc.doc_id || idx}>
+                  <CarouselItem key={doc.document?.doc_id || idx}>
                     <Image
-                      src={doc.doc_path || ""}
+                      src={doc.document?.doc_path || ""}
                       alt={`product-image-${idx + 1}`}
                       width={0}
                       height={0}
@@ -60,7 +60,7 @@ export default async function ProductDetail({
             </Carousel>
           ) : documents && documents.length === 1 ? (
             <Image
-              src={documents[0].doc_path || ""}
+              src={documents[0].document?.doc_path || ""}
               alt="product-image-1"
               width={0}
               height={0}

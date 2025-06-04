@@ -1,24 +1,17 @@
+import { documentPick } from "@/lib/dto/document.dto";
 import { ProductDTO } from "@/lib/dto/product.dto";
 import { prisma } from "@/lib/prisma";
 
-export async function getDocumentsFromProduct(myproduct: ProductDTO) {
-  if (myproduct == null) {
-    return null;
-  }
+export async function getDocumentsFromProductById(productId: number) {
   const documents = await prisma.document_product.findMany({
     where: {
-      product_id: myproduct.product_id,
+      product_id: productId,
     },
-  });
-  const documentIds = documents
-    .map((doc) => doc.document_id)
-    .filter((id: number | null): id is number => id !== null);
-  const documentDetails = await prisma.document.findMany({
-    where: {
-      doc_id: {
-        in: documentIds,
+    select: {
+      document: {
+        select: documentPick,
       },
     },
   });
-  return documentDetails;
+  return documents;
 }

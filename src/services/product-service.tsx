@@ -1,21 +1,40 @@
+import { documentPick } from "@/lib/dto/document.dto";
 import { ProductDTO, productPick } from "@/lib/dto/product.dto";
 import { prisma } from "@/lib/prisma";
 
-export async function getProducts(): Promise<ProductDTO[]> {
-  const products = await prisma.product.findMany({
-    select: productPick,
-  });
-  return products;
-}
-
-export async function getProductBySlug(
+export async function getProductBySlugWithDocuments(
   slug: string
 ): Promise<ProductDTO | null> {
   const product = await prisma.product.findUnique({
     where: {
       product_slug: slug,
     },
-    select: productPick,
+    select: {
+      ...productPick,
+      document_product: {
+        select: {
+          document: {
+            select: documentPick,
+          },
+        },
+      },
+    },
   });
   return product;
+}
+
+export async function getProductsWithDocuments() {
+  const productsWithDocuments = await prisma.product.findMany({
+    select: {
+      ...productPick,
+      document_product: {
+        select: {
+          document: {
+            select: documentPick,
+          },
+        },
+      },
+    },
+  });
+  return productsWithDocuments;
 }

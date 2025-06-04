@@ -1,6 +1,6 @@
 import { notFound } from "next/navigation";
 import ProductDetail from "@/app/products/[slug]/productdetails";
-import { getProductBySlug } from "@/services/product-service";
+import { getProductBySlugWithDocuments } from "@/services/product-service";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -8,7 +8,7 @@ type Props = {
 
 export default async function ProductPage({ params }: Props) {
   const { slug } = await params;
-  const product = await getProductBySlug(slug);
+  const product = await getProductBySlugWithDocuments(slug);
 
   if (!product) return notFound();
 
