@@ -1,12 +1,12 @@
 import Footer from "@/components/layout/footer";
 import NavigationBar from "@/components/layout/navigationbar";
-import ContentRenderer from "@/components/content/contentrenderer";
+import MarkdownContent from "@/components/content/markdowncontent";
 
 export default async function About() {
   return (
     <>
       <NavigationBar />
-      <ContentRenderer
+      <MarkdownContent
         slug="about_page"
         className="min-h-[calc(100svh_-_72px)]"
       />

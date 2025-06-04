@@ -1,6 +1,5 @@
 import NavigationBar from "@/components/layout/navigationbar";
 import Footer from "@/components/layout/footer";
-import { product } from "@prisma/client";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import {
@@ -15,8 +14,14 @@ import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/utils/common";
+import { ProductDTO } from "@/lib/dto/product.dto";
+import ImageContent from "@/components/content/imagecontent";
 
-export default async function ProductDetail({ product }: { product: product }) {
+export default async function ProductDetail({
+  product,
+}: {
+  product: ProductDTO;
+}) {
   const documents = await getDocumentsFromProduct(product);
   return (
     <>
@@ -85,13 +90,8 @@ export default async function ProductDetail({ product }: { product: product }) {
           <p className="mb-6">{product.product_desc}</p>
           <Link href={product.product_link_tokped ?? "#"} passHref>
             <Button className="mb-3 w-full justify-center flex">
-              <Image
-                src="/images/tokopedia.png"
-                width={16}
-                height={16}
-                alt="tokopedia-logo"
-              />{" "}
-              Buy on Tokopedia
+              <ImageContent slug="tokopedia-logo" width={16} height={16} /> Buy
+              on Tokopedia
             </Button>
           </Link>
           <Link href={product.product_link_shopee ?? "#"} passHref>
@@ -99,13 +99,8 @@ export default async function ProductDetail({ product }: { product: product }) {
               className="mb-6 w-full justify-center flex"
               variant={"khasfee-outline"}
             >
-              <Image
-                src="/images/shopee.png"
-                width={16}
-                height={16}
-                alt="shopee-logo"
-              />{" "}
-              Buy on Shopee
+              <ImageContent slug="shopee-logo" width={16} height={16} /> Buy on
+              Shopee
             </Button>
           </Link>
           <Tabs defaultValue="ingredients">

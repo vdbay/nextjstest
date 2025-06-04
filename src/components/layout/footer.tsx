@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import ImageContent from "../content/imagecontent";
 
 export default function Footer() {
   return (
@@ -8,9 +9,8 @@ export default function Footer() {
         <div className="span md:col-span-2 flex flex-col">
           <div className="relative w-32 h-16 mb-6">
             <Link href="/" passHref>
-              <Image
-                src="/images/logo.png"
-                alt="Khasfee Logo"
+              <ImageContent
+                slug="logo"
                 width={0}
                 height={0}
                 sizes="100vw"

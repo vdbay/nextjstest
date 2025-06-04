@@ -4,20 +4,16 @@ import {
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
 import { MenuIcon } from "lucide-react";
-import Image from "next/image";
 import {
   DrawerTrigger,
   DrawerContent,
-  DrawerHeader,
   DrawerTitle,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerClose,
   Drawer,
 } from "@/components/ui/drawer";
 import Link from "next/link";
 import { getUserInfoFromUserEmail, logout } from "@/lib/actions/auth";
 import NavLink from "@/components/shared/navlink";
+import ImageContent from "../content/imagecontent";
 
 export default async function NavigationBar() {
   const userInfo = await getUserInfoFromUserEmail();
@@ -63,9 +59,8 @@ export default async function NavigationBar() {
       </div>
       <div className="flex text-center h-full p-4 justify-center items-center">
         <Link href="/" passHref className="flex h-full w-full">
-          <Image
-            src="/images/logo.png"
-            alt="Khasfee Logo"
+          <ImageContent
+            slug="logo"
             width={0}
             height={0}
             sizes="100vw"

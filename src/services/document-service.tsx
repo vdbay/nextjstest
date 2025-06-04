@@ -1,8 +1,7 @@
+import { ProductDTO } from "@/lib/dto/product.dto";
 import { prisma } from "@/lib/prisma";
 
-import { product } from "@prisma/client";
-
-export async function getDocumentsFromProduct(myproduct: product) {
+export async function getDocumentsFromProduct(myproduct: ProductDTO) {
   if (myproduct == null) {
     return null;
   }

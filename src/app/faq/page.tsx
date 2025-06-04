@@ -1,4 +1,4 @@
-import ContentRenderer from "@/components/content/contentrenderer";
+import MarkdownContent from "@/components/content/markdowncontent";
 import Footer from "@/components/layout/footer";
 import NavigationBar from "@/components/layout/navigationbar";
 
@@ -6,7 +6,7 @@ export default function FAQ() {
   return (
     <>
       <NavigationBar />
-      <ContentRenderer
+      <MarkdownContent
         slug="faq_page"
         className="min-h-[calc(100svh_-_72px)]"
       />

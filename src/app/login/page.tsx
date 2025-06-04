@@ -1,3 +1,4 @@
+import ImageContent from "@/components/content/imagecontent";
 import LinkKeep from "@/components/shared/linkkeep";
 import LoginForm from "@/components/shared/loginform";
 import { ArrowLeft } from "lucide-react";
@@ -10,9 +11,8 @@ export default function Login() {
     <>
       <div className="grid grid-cols-1 lg:grid-cols-2 h-svh">
         <div className="bg-cover bg-center hidden lg:flex relative">
-          <Image
-            src="/images/hero/1.jpg"
-            alt="hero"
+          <ImageContent
+            slug="login_hero"
             fill
             style={{
               objectFit: "cover",

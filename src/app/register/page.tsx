@@ -1,3 +1,4 @@
+import ImageContent from "@/components/content/imagecontent";
 import LinkKeep from "@/components/shared/linkkeep";
 import RegisterForm from "@/components/shared/registerform";
 import { ArrowLeft } from "lucide-react";
@@ -31,9 +32,8 @@ export default function Register() {
           <div className="flex-1" />
         </div>
         <div className="bg-cover bg-center hidden lg:flex relative">
-          <Image
-            src="/images/hero/1.jpg"
-            alt="hero"
+          <ImageContent
+            slug="register_hero"
             fill
             style={{
               objectFit: "cover",

@@ -1,7 +1,7 @@
-import { parseAndValidateContentBlock } from "@/lib/parsers/content";
 import { prisma } from "@/lib/prisma";
+import { ContentType } from "@/lib/validators/content";
 
-export async function getContentBlockWithValidatedContentBySlug(slug: string) {
+export async function getContentBlockBySlug(slug: string) {
   if (!slug) return null;
 
   try {
@@ -12,15 +12,22 @@ export async function getContentBlockWithValidatedContentBySlug(slug: string) {
 
     if (!contentBlock || !contentBlock.content) return null;
 
-    const validatedContent = parseAndValidateContentBlock(contentBlock);
-    if (!validatedContent) return null;
+    let parsedContent;
+    switch (contentBlock.type) {
+      case ContentType.Image:
+        parsedContent = JSON.parse(contentBlock.content);
+        break;
+      default:
+        parsedContent = contentBlock.content;
+        break;
+    }
 
     return {
       ...contentBlock,
-      content: validatedContent,
+      content: parsedContent,
     };
   } catch (error) {
-    console.error("Failed to fetch or validate content block:", error);
+    console.error("Failed to fetch content block:", error);
     return null;
   }
 }

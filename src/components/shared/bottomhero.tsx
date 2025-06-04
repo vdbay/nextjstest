@@ -1,11 +1,11 @@
 import Image from "next/image";
+import ImageContent from "../content/imagecontent";
 
 export default function BottomHero() {
   return (
     <div className="h-svh flex">
-      <Image
-        src="/images/hero/4.jpg"
-        alt="hero"
+      <ImageContent
+        slug="bottom_hero"
         width={0}
         height={0}
         sizes="100vw"

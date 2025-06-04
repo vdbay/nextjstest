@@ -3,12 +3,16 @@ import { z } from "zod";
 export enum ContentType {
   Markdown = "markdown",
   Text = "text",
+  Image = "image",
 }
 
-export const ContentMarkdownSchema = z.string().optional();
+export const ContentMarkdownSchema = z.string();
 
 export type ContentMarkdownType = z.infer<typeof ContentMarkdownSchema>;
 
-export const ContentTextSchema = z.string().optional();
+export const ContentImageSchema = z.object({
+  src: z.string().url(),
+  alt: z.string().optional(),
+});
 
-export type ContentTextType = z.infer<typeof ContentTextSchema>;
+export type ContentImageType = z.infer<typeof ContentImageSchema>;
