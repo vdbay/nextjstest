@@ -3,7 +3,7 @@ import ImageContent from "../content/imagecontent";
 
 export default function Hero() {
   return (
-    <div className="h-[calc(100svh_-_72px)] flex">
+    <div className="aspect-[4/5] sm:aspect-[250/100] flex">
       <ImageContent
         slug="main_hero"
         width={0}

@@ -14,11 +14,9 @@ export default async function MarkdownContent({
   const content = contentBlock?.content as ContentMarkdownType;
   const parsed = await markdownToHtml(content);
   return (
-    <div className={cn("flex items-center justify-center p-16", className)}>
-      <div
-        className="prose max-w-none"
-        dangerouslySetInnerHTML={{ __html: parsed }}
-      />
-    </div>
+    <div
+      className={cn("prose max-w-none p-16", className)}
+      dangerouslySetInnerHTML={{ __html: parsed }}
+    />
   );
 }

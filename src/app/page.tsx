@@ -17,7 +17,6 @@ export default async function Home() {
       <SpecialOffer />
       <BottomHero />
       <Footer />
-      <FloatingWidget />
     </div>
   );
 }

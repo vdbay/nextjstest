@@ -5,7 +5,7 @@ generator client {
 datasource db {
   provider  = "postgresql"
   url       = env("DATABASE_URL")
-  directUrl = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model product {
@@ -397,10 +397,47 @@ model content_block {
   id               BigInt    @id(map: "ContentBlock_pkey") @unique(map: "ContentBlock_id_key") @default(autoincrement())
   slug             String    @unique(map: "ContentBlock_slug_key") @db.VarChar
   title            String?   @db.VarChar
-  type             String    @db.VarChar
   content          String
   created_at       DateTime? @db.Timestamp(6)
   created_by       String?   @db.VarChar
   last_modified_at DateTime? @db.Timestamp(6)
   last_modified_by String?   @db.VarChar
+  type             String    @db.VarChar
+}
+
+model page {
+  id               BigInt         @id @unique @default(autoincrement())
+  slug             String         @unique @db.VarChar
+  title            String?        @db.VarChar
+  created_at       DateTime?      @db.Timestamp(6)
+  created_by       String?        @db.VarChar
+  last_modified_at DateTime?      @db.Timestamp(6)
+  last_modified_by String?        @db.VarChar
+  page_section     page_section[]
+}
+
+model page_section {
+  id               BigInt    @id @unique @default(autoincrement())
+  page_id          BigInt
+  section_id       BigInt
+  order            BigInt
+  created_at       DateTime? @db.Timestamp(6)
+  created_by       String?   @db.VarChar
+  last_modified_at DateTime? @db.Timestamp(6)
+  last_modified_by String?   @db.VarChar
+  page             page      @relation(fields: [page_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  section          section   @relation(fields: [section_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model section {
+  id               BigInt         @id @unique @default(autoincrement())
+  type             String?        @db.VarChar
+  data             String?
+  created_at       DateTime?      @db.Timestamp(6)
+  created_by       String?        @db.VarChar
+  last_modified_at DateTime?      @db.Timestamp(6)
+  last_modified_by String?        @db.VarChar
+  title            String?        @db.VarChar
+  slug             String         @unique @db.VarChar
+  page_section     page_section[]
 }

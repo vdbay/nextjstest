@@ -3,7 +3,7 @@ import ImageContent from "../content/imagecontent";
 
 export default function DoubleHero() {
   return (
-    <div className="flex h-svh flex-col md:flex-row ">
+    <div className="flex aspect-[3/1] flex-col md:flex-row ">
       <div className="relative h-full w-full md:w-1/2">
         <ImageContent
           slug="

@@ -14,14 +14,17 @@ import Link from "next/link";
 import { getUserInfoFromUserEmail, logout } from "@/lib/actions/auth";
 import NavLink from "@/components/shared/navlink";
 import ImageContent from "../content/imagecontent";
+import MarkdownContent from "../content/markdowncontent";
 
 export default async function NavigationBar() {
   const userInfo = await getUserInfoFromUserEmail();
   return (
-    <div>
-      <div className="bg-black text-white text-center py-2">
-        USE CODE <span className="text-gold-khasfee">KHASFEE10</span> FOR 10%
-        OFF ON YOUR FIRST ORDER
+    <>
+      <div className="bg-black">
+        <MarkdownContent
+          slug="topbar_message"
+          className="p-2 text-white prose-strong:text-gold-khasfee text-center"
+        />
       </div>
       <div className="h-18 w-full flex items-center px-8 md:px-16 justify-center">
         <div className="flex-1 hidden md:flex">
@@ -92,6 +95,6 @@ export default async function NavigationBar() {
           </NavigationMenu>
         </div>
       </div>
-    </div>
+    </>
   );
 }
