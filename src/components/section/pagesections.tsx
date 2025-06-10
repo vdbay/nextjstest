@@ -1,11 +1,19 @@
 import { getSectionsByPageSlug } from "@/services/page-section-service";
-import MarkdownContent from "../content/markdowncontent";
 import {
   HeroWidgetSchema,
   MarkdownWidgetSchema,
 } from "@/lib/validators/section";
+import MarkdownWidget from "./markdownwidget";
+import { cn } from "@/lib/utils";
+import HeroWidget from "./herowidget";
 
-export default async function Section({ slug }: { slug: string }) {
+export default async function PageSections({
+  slug,
+  className,
+}: {
+  slug: string;
+  className: string;
+}) {
   const response = await getSectionsByPageSlug(slug);
 
   const sortedSections = response?.page_section
@@ -21,12 +29,14 @@ export default async function Section({ slug }: { slug: string }) {
               const markdownData = MarkdownWidgetSchema.parse(
                 JSON.parse(section.data ?? "")
               );
-              return <div>Markdown</div>;
+              return (
+                <MarkdownWidget data={markdownData} className={cn(className)} />
+              );
             case "hero":
               const heroData = HeroWidgetSchema.parse(
                 JSON.parse(section.data ?? "")
               );
-              return <div>Hero</div>;
+              return <HeroWidget data={heroData} className={cn(className)} />;
             default:
               return <div>An Error Occured</div>;
           }

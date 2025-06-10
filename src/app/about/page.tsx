@@ -4,12 +4,13 @@ import MarkdownContent from "@/components/content/markdowncontent";
 import ImageContent from "@/components/content/imagecontent";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import PageSections from "@/components/section/pagesections";
 
 export default async function About() {
   return (
     <>
       <NavigationBar />
-      <div className="w-full aspect-[3/1] relative">
+      {/* <div className="w-full aspect-[3/1] relative">
         <ImageContent
           slug="main_hero"
           width={0}
@@ -39,7 +40,8 @@ export default async function About() {
       <MarkdownContent
         slug="about_page"
         className="min-h-[calc(100svh_-_72px)]"
-      />
+      /> */}
+      <PageSections slug="about" className="" />
       <Footer />
     </>
   );
