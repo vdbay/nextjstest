@@ -89,6 +89,7 @@ model catalogue {
   created_by        String?             @db.VarChar(100)
   last_modified_at  DateTime?           @db.Timestamp(6)
   last_modified_by  String?             @db.VarChar(100)
+  catalogue_slug    String?             @unique @db.VarChar
   catalogue_product catalogue_product[]
 }
 
@@ -365,6 +366,7 @@ model catalogue_product {
   created_by       String?    @db.VarChar
   last_modified_at DateTime?  @db.Timestamp(6)
   last_modified_by String?    @db.VarChar
+  order            BigInt?
   catalogue        catalogue? @relation(fields: [catalogue_id], references: [catalogue_id], onDelete: NoAction, onUpdate: NoAction)
   product          product?   @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
 }
@@ -377,6 +379,7 @@ model document_product {
   created_by       String?   @db.VarChar
   last_modified_at DateTime? @db.Timestamp(6)
   last_modified_by String?   @db.VarChar
+  order            BigInt?
   document         document? @relation(fields: [document_id], references: [doc_id], onDelete: NoAction, onUpdate: NoAction)
   product          product?  @relation(fields: [product_id], references: [product_id], onDelete: NoAction, onUpdate: NoAction)
 }

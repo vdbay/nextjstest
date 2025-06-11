@@ -13,7 +13,7 @@ import Link from "next/link";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/utils/common";
-import { ProductDTO } from "@/lib/dto/product.dto";
+import { ProductDTO } from "@/services/dto/product.dto";
 import ImageContent from "@/components/content/imagecontent";
 import { getDocumentsFromProductById } from "@/services/document-service";
 

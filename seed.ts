@@ -98,7 +98,12 @@ Kami percaya bahwa setiap orang berhak tampil percaya diri—alami, mewah, dan t
 
   await prisma.page_section.upsert({
     where: { id: 1001 },
-    update: {},
+    update: {
+      id: 1001,
+      page_id: aboutPage.id,
+      section_id: aboutHeroSection.id,
+      order: 1,
+    },
     create: {
       id: 1001,
       page_id: aboutPage.id,
@@ -109,7 +114,12 @@ Kami percaya bahwa setiap orang berhak tampil percaya diri—alami, mewah, dan t
 
   await prisma.page_section.upsert({
     where: { id: 1002 },
-    update: {},
+    update: {
+      id: 1002,
+      page_id: aboutPage.id,
+      section_id: aboutMarkdownSection.id,
+      order: 2,
+    },
     create: {
       id: 1002,
       page_id: aboutPage.id,

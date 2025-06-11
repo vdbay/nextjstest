@@ -1,5 +1,5 @@
-import { documentPick } from "@/lib/dto/document.dto";
-import { ProductDTO } from "@/lib/dto/product.dto";
+import { documentSelect } from "@/services/dto/document.dto";
+import { ProductDTO } from "@/services/dto/product.dto";
 import { prisma } from "@/lib/prisma";
 
 export async function getDocumentsFromProductById(productId: number) {
@@ -9,7 +9,7 @@ export async function getDocumentsFromProductById(productId: number) {
     },
     select: {
       document: {
-        select: documentPick,
+        select: documentSelect,
       },
     },
   });

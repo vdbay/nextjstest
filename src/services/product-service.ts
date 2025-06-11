@@ -1,5 +1,5 @@
-import { documentPick } from "@/lib/dto/document.dto";
-import { ProductDTO, productPick } from "@/lib/dto/product.dto";
+import { documentSelect } from "@/services/dto/document.dto";
+import { ProductDTO, productSelect } from "@/services/dto/product.dto";
 import { prisma } from "@/lib/prisma";
 
 export async function getProductBySlugWithDocuments(
@@ -10,11 +10,11 @@ export async function getProductBySlugWithDocuments(
       product_slug: slug,
     },
     select: {
-      ...productPick,
+      ...productSelect,
       document_product: {
         select: {
           document: {
-            select: documentPick,
+            select: documentSelect,
           },
         },
       },
@@ -26,11 +26,11 @@ export async function getProductBySlugWithDocuments(
 export async function getProductsWithDocuments() {
   const productsWithDocuments = await prisma.product.findMany({
     select: {
-      ...productPick,
+      ...productSelect,
       document_product: {
         select: {
           document: {
-            select: documentPick,
+            select: documentSelect,
           },
         },
       },

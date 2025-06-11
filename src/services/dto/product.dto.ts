@@ -1,6 +1,6 @@
 import { Prisma } from "@prisma/client";
 
-export const productPick = {
+export const productSelect = {
   product_id: true,
   product_name: true,
   product_desc: true,
@@ -13,5 +13,5 @@ export const productPick = {
 } as const;
 
 export type ProductDTO = Prisma.productGetPayload<{
-  select: typeof productPick;
+  select: typeof productSelect;
 }>;

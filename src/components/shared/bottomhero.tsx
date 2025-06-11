@@ -3,7 +3,7 @@ import ImageContent from "../content/imagecontent";
 
 export default function BottomHero() {
   return (
-    <div className="h-svh flex">
+    <div className="aspect-[4/5] sm:aspect-[5/2] flex">
       <ImageContent
         slug="bottom_hero"
         width={0}
