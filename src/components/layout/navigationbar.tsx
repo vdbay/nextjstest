@@ -20,11 +20,13 @@ export default async function NavigationBar() {
   const userInfo = await getUserInfoFromUserEmail();
   return (
     <>
-      <div className="bg-black">
-        <MarkdownContent
-          slug="topbar_message"
-          className="p-2 text-white prose-strong:text-gold-khasfee text-center"
-        />
+      <div className="bg-black overflow-hidden text-nowrap">
+        <div className="animate-marquee sm:animate-none">
+          <MarkdownContent
+            slug="topbar_message"
+            className="p-2 text-white prose-strong:text-gold-khasfee text-center"
+          />
+        </div>
       </div>
       <div className="h-18 w-full flex items-center px-8 md:px-16 justify-center">
         <div className="flex-1 hidden md:flex">

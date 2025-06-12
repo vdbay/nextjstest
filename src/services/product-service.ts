@@ -1,6 +1,7 @@
 import { documentSelect } from "@/services/dto/document.dto";
 import { ProductDTO, productSelect } from "@/services/dto/product.dto";
 import { prisma } from "@/lib/prisma";
+import { documentProductSelect } from "./dto/documentProduct.dto";
 
 export async function getProductBySlugWithDocuments(
   slug: string
@@ -29,6 +30,7 @@ export async function getProductsWithDocuments() {
       ...productSelect,
       document_product: {
         select: {
+          ...documentProductSelect,
           document: {
             select: documentSelect,
           },

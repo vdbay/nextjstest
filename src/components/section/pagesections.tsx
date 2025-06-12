@@ -36,7 +36,13 @@ export default async function PageSections({
               const heroData = HeroWidgetSchema.parse(
                 JSON.parse(section.data ?? "")
               );
-              return <HeroWidget data={heroData} className={cn(className)} />;
+              return (
+                <HeroWidget
+                  data={heroData}
+                  className={cn(className)}
+                  showTitle
+                />
+              );
             default:
               return <div>An Error Occured</div>;
           }

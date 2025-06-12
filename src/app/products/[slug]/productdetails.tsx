@@ -16,6 +16,7 @@ import { formatPrice } from "@/utils/common";
 import { ProductDTO } from "@/services/dto/product.dto";
 import ImageContent from "@/components/content/imagecontent";
 import { getDocumentsFromProductById } from "@/services/document-service";
+import SimilarWidget from "@/components/section/similarwidget";
 
 export default async function ProductDetail({
   product,
@@ -117,7 +118,7 @@ export default async function ProductDetail({
           </Tabs>
         </div>
       </div>
-
+      <SimilarWidget slug={product.product_slug ?? ""} />
       <Footer />
     </>
   );

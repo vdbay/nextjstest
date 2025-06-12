@@ -90,7 +90,7 @@ export default function Footer() {
             <div className="flex flex-col gap-3">
               <a
                 href="mailto:halo@khasfeeimperiale.com"
-                className=" text-black opacity-50 cursor-pointer text-clip"
+                className="text-black opacity-50 cursor-pointer break-all"
               >
                 Email: halo@khasfeeimperiale.com
               </a>
