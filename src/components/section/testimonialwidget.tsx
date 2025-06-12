@@ -1,6 +1,7 @@
 import { getProductAndDocumentsFromCatalogueBySlug } from "@/services/catalogue-product-service";
+import { StarHalfIcon, StarIcon } from "lucide-react";
 import Image from "next/image";
-export default async function FeatureWidget({
+export default async function TestimonialWidget({
   slug,
   className,
 }: {
@@ -9,15 +10,15 @@ export default async function FeatureWidget({
 }) {
   return (
     <div className="py-18 flex flex-col items-center justify-center gap-18">
-      <div className="text-2xl">Key Benefits</div>
-      <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mx-8">
-        {[1, 2, 3, 4, 5].map((i) => {
+      <div className="text-2xl">Testimonial</div>
+      <div className="grid grid-cols-2 lg:grid-cols-4 justify-center gap-8 mx-8">
+        {[1, 2, 3, 4].map((i) => {
           return (
             <div
               key={i}
-              className="flex flex-col items-center justify-start gap-4 w-22 sm:w-40 overflow-clip"
+              className="flex flex-col items-center justify-start gap-4 w-36 sm:w-60 overflow-clip"
             >
-              <div className="aspect-square flex relative rounded-full overflow-clip w-22 sm:w-40">
+              <div className="aspect-square flex relative rounded-full overflow-clip w-28">
                 <Image
                   src="https://pbmusjkkxqeayxdojbrb.supabase.co/storage/v1/object/public/khasfee/content/3.jpg"
                   alt="avatar"
@@ -25,7 +26,17 @@ export default async function FeatureWidget({
                   className="object-cover object-center"
                 />
               </div>
-              <div className="pt-4 text-center line-clamp-2">
+              <div className="pt-4 text-center line-clamp-1">Customer Name</div>
+              <div className="flex flex-row">
+                {[1, 2, 3, 4, 5].map((i) => {
+                  return i !== 5 ? (
+                    <StarIcon key={i} className="text-gold-khasfee" />
+                  ) : (
+                    <StarHalfIcon key={i} className="text-gold-khasfee" />
+                  );
+                })}
+              </div>
+              <div className="text-center text-black/50 line-clamp-7 sm:line-clamp-5">
                 Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
                 provident ad odio sint, facilis, laboriosam fugit labore
                 inventore debitis aspernatur delectus voluptatibus temporibus
