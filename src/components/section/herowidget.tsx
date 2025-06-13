@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { HeroWidgetType } from "@/lib/validators/section";
+import { HeroWidgetType } from "@/lib/validators/widget";
 import Link from "next/link";
 import { cn } from "@/lib/utils";
 import Image from "next/image";

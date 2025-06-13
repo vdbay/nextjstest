@@ -9,6 +9,9 @@ export const HeroWidgetSchema = z.object({
   buttonText: z.string().optional(),
   buttonHref: z.string().url().optional(),
   className: z.string().optional(),
+  showTitle: z.boolean().optional(),
+  showSubtitle: z.boolean().optional(),
+  showButton: z.boolean().optional(),
 });
 
 export type HeroWidgetType = z.infer<typeof HeroWidgetSchema>;

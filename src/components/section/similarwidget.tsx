@@ -25,11 +25,9 @@ export default async function SimilarWidget({
                 href={`/products/${product?.product_slug}`}
                 className="flex flex-col items-center"
                 passHref
+                key={product.product_id}
               >
-                <div
-                  key={product.product_id}
-                  className="flex flex-col items-center justify-start gap-4 w-32 sm:w-60 overflow-clip"
-                >
+                <div className="flex flex-col items-center justify-start gap-4 w-32 sm:w-60 overflow-clip">
                   <div className="aspect-square flex relative overflow-clip w-60 sm:w-80">
                     <Image
                       src={images?.doc_path ?? ""}

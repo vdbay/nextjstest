@@ -21,6 +21,7 @@ export default async function CatalogueWidget({
               href={`/products/${product?.product_slug}`}
               className="flex flex-col items-center"
               passHref
+              key={catprod.cat_prod_id}
             >
               <div
                 key={catprod.cat_prod_id}

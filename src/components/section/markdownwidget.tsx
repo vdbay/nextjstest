@@ -1,6 +1,6 @@
 import { markdownToHtml } from "@/lib/markdown";
 import { cn } from "@/lib/utils";
-import { MarkdownWidgetType } from "@/lib/validators/section";
+import { MarkdownWidgetType } from "@/lib/validators/widget";
 
 export default async function MarkdownWidget({
   data,

@@ -1,7 +1,7 @@
 import {
   HeroWidgetSchema,
   MarkdownWidgetSchema,
-} from "@/lib/validators/section";
+} from "@/lib/validators/widget";
 import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
